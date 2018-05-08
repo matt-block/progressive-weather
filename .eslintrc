@@ -1,0 +1,36 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+
+  "extends": "react-app",
+
+  "rules": {
+    "indent": ["warn", 2, { "SwitchCase": 1 }],
+    "quotes": ["warn", "single"],
+    "jsx-quotes": ["warn", "prefer-single"],
+    "semi": ["warn", "never"],
+    "max-len": ["warn", { "code": 120, "comments": 83, "ignoreUrls": true }],
+    "spaced-comment": ["warn", "always"],
+    "space-before-blocks": "warn",
+    "space-before-function-paren": ["warn", { "anonymous": "always", "named": "never", "asyncArrow": "always" }],
+    "block-spacing": "warn",
+    "key-spacing": "warn",
+    "arrow-spacing": "warn",
+    "keyword-spacing": ["warn", { "before": true }],
+    "comma-spacing": "warn",
+    "object-curly-spacing": ["warn", "always"],
+    "space-infix-ops": "warn",
+    "eol-last": ["warn", "never"],
+    "no-multi-spaces": "warn",
+    "no-trailing-spaces": "warn",
+    "no-multiple-empty-lines": ["warn", { "max": 1 }],
+    "no-var": "error",
+    "no-unused-vars": "error",
+    "no-unreachable": "error"
+  }
+}
