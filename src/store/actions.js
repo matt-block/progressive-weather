@@ -10,8 +10,15 @@ export const fetchCurrentDataFor = (latitude, longitude) => async (dispatch) => 
   dispatch(startApiFetching())
 
   const options = { method: 'GET' }
-  const data = await fetch(`${API_ENDPOINT_BASE}/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`, options)
-  dispatch(addApiData(await data.json()))
+  const data = await fetch(`${API_ENDPOINT_BASE}/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`, options)
+  const rawData = await data.json()
+
+  const currentData = {}
+  currentData.locationName = rawData.name
+  currentData.temperature = rawData.main.temp
+  currentData.humidity = rawData.main.humidity
+  currentData.description = rawData.weather[0].main
+  dispatch(addApiData(currentData))
 
   dispatch(stopApiFetching())
 }
