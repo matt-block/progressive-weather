@@ -6,6 +6,7 @@
  */
 
 import React from 'react'
+import './Widgets.css'
 
 /**
  * Widget that displays the current weather conditions.
@@ -18,11 +19,10 @@ import React from 'react'
  */
 export function WeatherWidget(data) {
   return (
-    <section className='current-weather'>
-      <p>{data.location}</p>
-      <p>{data.temp} °C</p>
-      <p>{data.humid} %</p>
-      <p>{data.description}</p>
+    <section className='current-weather-widget'>
+      <p className='current-weather-widget__location'>{data.location}</p>
+      <p className='current-weather-widget__main'>{data.temp} °C</p>
+      <p className='current-weather-widget__description'>{data.description}</p>
     </section>
   )
 }
@@ -33,8 +33,8 @@ export function WeatherWidget(data) {
  */
 export function LoadingWidget() {
   return (
-    <section className='current-weather'>
-      <p>Loading...</p>
+    <section className='current-weather-widget'>
+      <p className='current-weather-widget__main'>Loading...</p>
     </section>
   )
 }

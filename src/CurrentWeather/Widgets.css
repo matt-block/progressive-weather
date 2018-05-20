@@ -1,0 +1,19 @@
+.current-weather-widget { text-align: center; }
+
+.current-weather-widget__location {
+  margin-top: 8px;
+  margin-bottom: 12px;
+  margin-left: 0;
+  margin-right: 0;
+  font-size: 32px;
+}
+
+.current-weather-widget__main {
+  margin: 12px 0;
+  font-size: 40px;
+}
+
+.current-weather-widget__description {
+  margin: 8px;
+  font-size: 18px;
+}
