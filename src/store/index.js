@@ -4,7 +4,8 @@
  * Licensed under MIT
  * (https://github.com/matt-block/progressive-weather/blob/master/LICENSE)
  */
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
 import { apiReducer } from './reducers'
 
-export const store = createStore(apiReducer)
+export const store = createStore(apiReducer, applyMiddleware(thunk))
