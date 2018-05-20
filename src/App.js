@@ -7,11 +7,12 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 import { store } from './store'
+import CurrentWeather from './CurrentWeather/CurrentWeather'
 
 function App() {
   return (
     <Provider store={store}>
-      <p>To get started, edit <code>src/App.js</code> and save to reload.</p>
+      <CurrentWeather />
     </Provider>
   )
 }
