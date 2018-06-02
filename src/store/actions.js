@@ -4,14 +4,14 @@
  * Licensed under MIT
  * (https://github.com/matt-block/progressive-weather/blob/master/LICENSE)
  */
-import { API_ENDPOINT_BASE, API_KEY } from '../config'
+import { API_KEY } from '../config'
+import OpenWeatherMap from '../api/OpenWeatherMap'
 
 export const fetchCurrentDataFor = (latitude, longitude) => async (dispatch) => {
   dispatch(startApiFetching())
 
-  const options = { method: 'GET' }
-  const data = await fetch(`${API_ENDPOINT_BASE}/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`, options)
-  const rawData = await data.json()
+  const weatherService = new OpenWeatherMap(API_KEY, 'metric')
+  const rawData = await weatherService.getCurrentByCoordinates(latitude, longitude)
 
   const currentData = {}
   currentData.locationName = rawData.name
