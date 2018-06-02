@@ -7,6 +7,7 @@
 
 import React from 'react'
 import './Widgets.css'
+import { WeatherIcon } from '../Icons'
 
 /**
  * Widget that displays a list with the forecast days.
@@ -34,7 +35,9 @@ export function ForecastDay(data) {
   return (
     <li className='forecast-list__item'>
       <span className='forecast-list__item-day'>{data.day}</span>
-      <span className='forecast-list__item-icon'>{data.icon}</span>
+      <div className='forecast-list__item-icon'>
+        <WeatherIcon id={data.icon} />
+      </div>
       <div className='forecast-list__item-temperatures'>
         <span>{data.max.toFixed(0)}°</span> / <span>{data.min.toFixed(0)}°</span>
       </div>

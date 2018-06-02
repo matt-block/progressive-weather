@@ -6933,6 +6933,10 @@ wbuf@^1.1.0, wbuf@^1.7.2:
   dependencies:
     minimalistic-assert "^1.0.0"
 
+weather-underground-icons@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/weather-underground-icons/-/weather-underground-icons-1.0.0.tgz#15f2951a46d1dff648b800e7adfd80af1989a09b"
+
 webidl-conversions@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-3.0.1.tgz#24534275e2a7bc6be7bc86611cc16ae0a5654871"
