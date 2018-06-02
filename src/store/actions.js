@@ -24,6 +24,7 @@ export const fetchCurrentDataFor = (latitude, longitude) => async (dispatch) => 
   currentData.sunset = moment.unix(rawData.sys.sunset)
   currentData.description = rawData.weather[0].main
   currentData.icon = rawData.weather[0].icon
+  currentData.wind = rawData.wind.speed
   dispatch(addApiData(currentData))
 
   dispatch(stopApiFetching())

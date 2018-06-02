@@ -50,3 +50,40 @@
   margin: 8px;
   font-size: 18px;
 }
+
+.secondary-current-weather-widget {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.secondary-current-weather-widget__wind {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 32%;
+  font-size: 12px;
+  border-left: 1px solid rgba(216, 216, 216, 0.7);
+  border-right: 1px solid rgba(216, 216, 216, 0.7);
+}
+
+.secondary-current-weather-widget__humidity,
+.secondary-current-weather-widget__sunset {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 32%;
+  font-size: 12px;
+}
+
+.secondary-current-weather-widget__wind > .icon-wind,
+.secondary-current-weather-widget__humidity > .icon-humidity,
+.secondary-current-weather-widget__sunset > .icon-sunset {
+  margin-bottom: 4px;
+  width: 16px;
+  height: 16px;
+}

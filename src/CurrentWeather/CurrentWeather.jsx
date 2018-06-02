@@ -7,7 +7,8 @@
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { WeatherWidget, LoadingWidget, StylingWrapper } from './Widgets'
+import { Container } from '../PageUtils'
+import { WeatherWidget, LoadingWidget, StylingWrapper, SecondaryWidget } from './Widgets'
 import { fetchCurrentDataFor } from '../store/actions'
 
 class CurrentWeather extends Component {
@@ -34,16 +35,26 @@ class CurrentWeather extends Component {
       )
     } else {
       return (
-        <StylingWrapper>
-          <WeatherWidget
-            location={this.props.currentData.locationName}
-            temp={this.props.currentData.temperature}
-            tempMin={this.props.currentData.temperatureMin}
-            tempMax={this.props.currentData.temperatureMax}
-            description={this.props.currentData.description}
-            icon={this.props.currentData.icon}
-          />
-        </StylingWrapper>
+        <React.Fragment>
+          <StylingWrapper>
+            <WeatherWidget
+              location={this.props.currentData.locationName}
+              temp={this.props.currentData.temperature}
+              tempMin={this.props.currentData.temperatureMin}
+              tempMax={this.props.currentData.temperatureMax}
+              description={this.props.currentData.description}
+              icon={this.props.currentData.icon}
+            />
+          </StylingWrapper>
+          <Container>
+            <SecondaryWidget
+              wind={this.props.currentData.wind}
+              humidity={this.props.currentData.humidity}
+              sunrise={this.props.currentData.sunrise}
+              sunset={this.props.currentData.sunset}
+            />
+          </Container>
+        </React.Fragment>
       )
     }
   }

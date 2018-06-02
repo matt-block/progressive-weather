@@ -5,7 +5,9 @@
  * (https://github.com/matt-block/progressive-weather/blob/master/LICENSE)
  */
 
-export { WeatherIcon } from './WeatherIcon'
-export { WindIcon } from './WindIcon'
-export { HumidityIcon } from './HumidityIcon'
-export { SunsetIcon } from './SunsetIcon'
+import React from 'react'
+import icon from '../assets/ic_humidity.svg'
+
+export function HumidityIcon() {
+  return <img className='icon-humidity' src={icon} alt=''/>
+}

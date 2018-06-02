@@ -7,7 +7,7 @@
 
 import React from 'react'
 import { Container } from '../PageUtils'
-import { WeatherIcon } from '../Icons'
+import { WeatherIcon, WindIcon, HumidityIcon, SunsetIcon } from '../Icons'
 import './Widgets.css'
 
 /**
@@ -36,6 +36,35 @@ export function WeatherWidget(data) {
         </div>
       </div>
       <p className='current-weather-widget__description'>{data.description}</p>
+    </section>
+  )
+}
+
+/**
+ * Widget that display secondary current weather information,
+ * like humidity, wind and sunrise/sunset.
+ *
+ * @param {Object} data Secondary current weather data.
+ * @param {number} data.humidity Current humidity in percentage.
+ * @param {number} data.wind Current wind speed.
+ * @param {Object} data.sunset Sunset `moment` instance.
+ * @param {Object} data.sunrise Sunrise `moment` instance.
+ */
+export function SecondaryWidget(data) {
+  return (
+    <section className='secondary-current-weather-widget'>
+      <div className='secondary-current-weather-widget__humidity'>
+        <HumidityIcon />
+        {data.humidity.toFixed(0)} %
+      </div>
+      <div className='secondary-current-weather-widget__wind'>
+        <WindIcon />
+        {data.wind.toFixed(0)} m/s
+      </div>
+      <div className='secondary-current-weather-widget__sunset'>
+        <SunsetIcon />
+        {data.sunrise.format('HH:mm')} | {data.sunset.format('HH:mm')}
+      </div>
     </section>
   )
 }
