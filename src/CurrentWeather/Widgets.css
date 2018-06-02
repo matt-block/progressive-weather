@@ -1,4 +1,12 @@
-.current-weather-widget { text-align: center; }
+.current-weather-widget {
+  margin-top: 24px;
+  margin-bottom: 48px;
+  text-align: center;
+}
+
+.current-weather-widget__wrapper {
+  flex: 1;
+}
 
 .current-weather-widget__location {
   margin-top: 8px;

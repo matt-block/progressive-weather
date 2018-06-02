@@ -7,8 +7,7 @@
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Container } from '../PageUtils'
-import { WeatherWidget, LoadingWidget } from './Widgets'
+import { WeatherWidget, LoadingWidget, StylingWrapper } from './Widgets'
 import { fetchCurrentDataFor } from '../store/actions'
 
 class CurrentWeather extends Component {
@@ -29,20 +28,20 @@ class CurrentWeather extends Component {
   render() {
     if (!this.props.currentData || this.props.isFetching) {
       return (
-        <Container>
+        <StylingWrapper>
           <LoadingWidget />
-        </Container>
+        </StylingWrapper>
       )
     } else {
       return (
-        <Container>
+        <StylingWrapper>
           <WeatherWidget
             location={this.props.currentData.locationName}
             temp={this.props.currentData.temperature}
             humid={this.props.currentData.humidity}
             description={this.props.currentData.description}
           />
-        </Container>
+        </StylingWrapper>
       )
     }
   }

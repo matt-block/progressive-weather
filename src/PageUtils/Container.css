@@ -3,11 +3,11 @@
   --max-width-sm: 540px;
 
   margin: 0 auto;
-  max-width: var(--max-width-xs);
+  width: var(--max-width-xs);
 }
 
 @media(min-width: 576px) {
   .container {
-    max-width: var(--max-width-sm);
+    width: var(--max-width-sm);
   }
 }

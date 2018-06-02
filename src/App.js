@@ -9,6 +9,7 @@ import { Provider } from 'react-redux'
 import { store } from './store'
 import CurrentWeather from './CurrentWeather'
 import Forecast from './Forecast'
+import './App.css'
 
 function App() {
   return (

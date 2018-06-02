@@ -6,6 +6,7 @@
  */
 
 import React from 'react'
+import { Container } from '../PageUtils'
 import './Widgets.css'
 
 /**
@@ -36,5 +37,21 @@ export function LoadingWidget() {
     <section className='current-weather-widget'>
       <p className='current-weather-widget__main'>Loading...</p>
     </section>
+  )
+}
+
+/**
+ * Component that provides the intended prominence to the current weather.
+ *
+ * This component should be used as a parent of `LoadingWidget` and
+ * `WeatherWidget`.
+ */
+export function StylingWrapper({ children }) {
+  return (
+    <div className='current-weather-widget__wrapper'>
+      <Container>
+        {children}
+      </Container>
+    </div>
   )
 }
