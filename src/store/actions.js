@@ -17,8 +17,13 @@ export const fetchCurrentDataFor = (latitude, longitude) => async (dispatch) => 
   const currentData = {}
   currentData.locationName = rawData.name
   currentData.temperature = rawData.main.temp
+  currentData.temperatureMin = rawData.main.temp_min
+  currentData.temperatureMax = rawData.main.temp_max
   currentData.humidity = rawData.main.humidity
+  currentData.sunrise = moment.unix(rawData.sys.sunrise)
+  currentData.sunset = moment.unix(rawData.sys.sunset)
   currentData.description = rawData.weather[0].main
+  currentData.icon = rawData.weather[0].icon
   dispatch(addApiData(currentData))
 
   dispatch(stopApiFetching())
