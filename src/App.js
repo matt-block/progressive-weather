@@ -7,12 +7,16 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 import { store } from './store'
-import CurrentWeather from './CurrentWeather/CurrentWeather'
+import CurrentWeather from './CurrentWeather'
+import Forecast from './Forecast'
 
 function App() {
   return (
     <Provider store={store}>
-      <CurrentWeather />
+      <React.Fragment>
+        <CurrentWeather />
+        <Forecast />
+      </React.Fragment>
     </Provider>
   )
 }

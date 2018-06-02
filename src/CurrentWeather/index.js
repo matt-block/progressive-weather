@@ -5,4 +5,6 @@
  * (https://github.com/matt-block/progressive-weather/blob/master/LICENSE)
  */
 
-export { CurrentWeather as default } from './CurrentWeather'
+import CurrentWeather from './CurrentWeather'
+
+export default CurrentWeather

@@ -5,4 +5,6 @@
  * (https://github.com/matt-block/progressive-weather/blob/master/LICENSE)
  */
 
-export { Forecast as default } from './Forecast'
+import Forecast from './Forecast'
+
+export default Forecast
