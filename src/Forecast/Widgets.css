@@ -12,7 +12,7 @@
   margin-bottom: 4px;
   height: 48px;
   padding: 0 12px;
-  background-color: rgba(64, 64, 64, 0.1);
+  background-color: #96969611;
 }
 
 .forecast-list__item-day {
@@ -25,6 +25,10 @@
 
 .forecast-list__item-icon {
   margin-right: 32px;
-  height: 36px;
-  width: 36px;
+  height: 34px;
+  width: 34px;
+}
+
+.forecast-list__item-temperatures > span:last-child {
+  color: rgba(216, 216, 216, 0.7);
 }
