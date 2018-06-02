@@ -25,7 +25,7 @@ export function ForecastList({ children }) {
  * List item that displays minimal predicted weather data for a future day.
  *
  * @param {Object} data Forecast data for the day.
- * @param {string} data.day Human readable week day.
+ * @param {number} data.day Week day.
  * @param {string} data.icon Condition icon ID.
  * @param {number} data.max Maximum predicted temperature.
  * @param {number} data.min Minimum predicted temperature.
@@ -33,8 +33,8 @@ export function ForecastList({ children }) {
 export function ForecastDay(data) {
   return (
     <li className='forecast-list__item'>
-      <span className='forecast-list__item-day'>Tomorrow</span>
-      <span className='forecast-list__item-icon'>icon</span>
+      <span className='forecast-list__item-day'>{data.day}</span>
+      <span className='forecast-list__item-icon'>{data.icon}</span>
       <div className='forecast-list__item-temperatures'>
         <span>{data.max.toFixed(0)}°</span> / <span>{data.min.toFixed(0)}°</span>
       </div>

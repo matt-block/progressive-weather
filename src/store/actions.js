@@ -35,18 +35,23 @@ export const fetchForecastDataFor = (latitude, longitude) => async (dispatch) =>
   daysSets[1] = []
   daysSets[2] = []
 
+  const weekDayNumbers = []
+
   const today = moment().startOf('day')
   rawData.list.map(set => {
     const setDate = moment.unix(set.dt).startOf('day')
     switch (setDate.diff(today, 'days')) {
       case 1:
         daysSets[0].push(set)
+        weekDayNumbers[0] = setDate.isoWeekday()
         return set
       case 2:
         daysSets[1].push(set)
+        weekDayNumbers[1] = setDate.isoWeekday()
         return set
       case 3:
         daysSets[2].push(set)
+        weekDayNumbers[2] = setDate.isoWeekday()
         return set
       default:
         return set
@@ -55,7 +60,9 @@ export const fetchForecastDataFor = (latitude, longitude) => async (dispatch) =>
 
   const forecastData = daysSets.map((day, index) => ({
     min: day.reduce((min, current) => current.main.temp_min <= min ? current.main.temp_min : min, 9999),
-    max: day.reduce((max, current) => current.main.temp_max >= max ? current.main.temp_max : max, -9999)
+    max: day.reduce((max, current) => current.main.temp_max >= max ? current.main.temp_max : max, -9999),
+    icon: getMostFrequentIcon(day),
+    day: weekDayNumbers[index]
   }))
 
   dispatch(addApiForecast(forecastData))
@@ -87,3 +94,30 @@ export const startApiFetching = () => ({
 export const stopApiFetching = () => ({
   type: 'API_STOP_FETCHING'
 })
+
+/**
+ * Gets the most frequent weather icon for a forecasted day.
+ *
+ * @param {Object[]} day Array of 3 hour data representing a forecast day.
+ */
+function getMostFrequentIcon(day) {
+  let counts = {}
+  let compare = 0
+  let mostFrequent
+  for (let i = 0, len = day.length; i < len; i++) {
+    let currentIcon = day[i].weather[0].icon
+
+    if (counts[currentIcon] === undefined) {
+      counts[currentIcon] = 1
+    } else {
+      counts[currentIcon]++
+    }
+
+    if (counts[currentIcon] > compare) {
+      compare = counts[currentIcon]
+      mostFrequent = day[i].weather[0].icon
+    }
+  }
+
+  return mostFrequent
+}
