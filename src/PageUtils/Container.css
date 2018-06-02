@@ -1,0 +1,13 @@
+.container {
+  --max-width-xs: 100%;
+  --max-width-sm: 540px;
+
+  margin: 0 auto;
+  max-width: var(--max-width-xs);
+}
+
+@media(min-width: 576px) {
+  .container {
+    max-width: var(--max-width-sm);
+  }
+}

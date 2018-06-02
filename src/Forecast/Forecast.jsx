@@ -8,6 +8,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import nanoid from 'nanoid'
+import { Container } from '../PageUtils'
 import { fetchForecastDataFor } from '../store/actions'
 import { ForecastList, ForecastDay } from './Widgets'
 
@@ -31,9 +32,11 @@ class Forecast extends Component {
       const days = this.props.forecastData.map(day => <ForecastDay key={nanoid()} {...day} />)
 
       return (
-        <ForecastList>
-          {days}
-        </ForecastList>
+        <Container>
+          <ForecastList>
+            {days}
+          </ForecastList>
+        </Container>
       )
     } else {
       return <div></div>
