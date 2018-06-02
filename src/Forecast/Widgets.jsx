@@ -34,7 +34,7 @@ export function ForecastList({ children }) {
 export function ForecastDay(data) {
   return (
     <li className='forecast-list__item'>
-      <span className='forecast-list__item-day'>{data.day}</span>
+      <span className='forecast-list__item-day'>{weekDay[data.day]}</span>
       <div className='forecast-list__item-icon'>
         <WeatherIcon id={data.icon} />
       </div>
@@ -43,4 +43,14 @@ export function ForecastDay(data) {
       </div>
     </li>
   )
+}
+
+const weekDay = {
+  1: 'Monday',
+  2: 'Tuesday',
+  3: 'Wednesday',
+  4: 'Thursday',
+  5: 'Friday',
+  6: 'Saturday',
+  7: 'Sunday',
 }
