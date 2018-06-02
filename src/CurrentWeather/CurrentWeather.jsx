@@ -38,8 +38,10 @@ class CurrentWeather extends Component {
           <WeatherWidget
             location={this.props.currentData.locationName}
             temp={this.props.currentData.temperature}
-            humid={this.props.currentData.humidity}
+            tempMin={this.props.currentData.temperatureMin}
+            tempMax={this.props.currentData.temperatureMax}
             description={this.props.currentData.description}
+            icon={this.props.currentData.icon}
           />
         </StylingWrapper>
       )

@@ -10,15 +10,40 @@
 
 .current-weather-widget__location {
   margin-top: 8px;
-  margin-bottom: 12px;
+  margin-bottom: 24px;
   margin-left: 0;
   margin-right: 0;
-  font-size: 32px;
+  font-size: 24px;
+}
+
+.current-weather-widget__main-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 70%;
+  margin: 0 auto;
 }
 
 .current-weather-widget__main {
-  margin: 12px 0;
-  font-size: 40px;
+  margin: 0;
+  font-size: 64px;
+}
+
+.current-weather-widget__main-relatives {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+}
+
+.current-weather-widget__main-relatives > span:last-child {
+  padding-top: 2px;
+  color: rgba(216, 216, 216, 0.7);
+}
+
+.current-weather-widget__main-icon {
+  width: 48px;
+  height: 48px;
 }
 
 .current-weather-widget__description {
