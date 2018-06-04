@@ -1,0 +1,17 @@
+.icon-notification {
+  position: relative;
+}
+
+.icon-notification__dot {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  background-color: red;
+}
+
+.icon-notification__dot--inactive {
+  display: none;
+}
