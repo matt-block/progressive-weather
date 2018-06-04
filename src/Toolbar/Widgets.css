@@ -1,0 +1,35 @@
+.header-shell {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 56px;
+  background-color: transparent;
+}
+
+.header-shell__title {
+  margin: 0;
+  padding: 0 72px;
+  font-size: 20px;
+}
+
+.header-shell__navigation-wrapper {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 56px;
+  background-color: transparent;
+}
+
+.header-shell__settings-wrapper {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 32px;
+  padding: 12px;
+  background-color: transparent;
+  cursor: pointer;
+}

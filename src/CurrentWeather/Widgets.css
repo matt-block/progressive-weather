@@ -8,14 +8,6 @@
   flex: 1;
 }
 
-.current-weather-widget__location {
-  margin-top: 8px;
-  margin-bottom: 24px;
-  margin-left: 0;
-  margin-right: 0;
-  font-size: 24px;
-}
-
 .current-weather-widget__main-wrapper {
   display: flex;
   flex-direction: row;

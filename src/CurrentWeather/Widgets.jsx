@@ -24,7 +24,6 @@ import './Widgets.css'
 export function WeatherWidget(data) {
   return (
     <section className='current-weather-widget'>
-      <p className='current-weather-widget__location'>{data.location}</p>
       <div className='current-weather-widget__main-wrapper'>
         <div className='current-weather-widget__main-icon'>
           <WeatherIcon id={data.icon} />

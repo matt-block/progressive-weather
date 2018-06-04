@@ -38,7 +38,6 @@ class CurrentWeather extends Component {
         <React.Fragment>
           <StylingWrapper>
             <WeatherWidget
-              location={this.props.currentData.locationName}
               temp={this.props.currentData.temperature}
               tempMin={this.props.currentData.temperatureMin}
               tempMax={this.props.currentData.temperatureMax}
