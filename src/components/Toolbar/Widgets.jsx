@@ -24,7 +24,11 @@ export function ToolbarTitle({ title }) {
  * Backward navigation button wrapper.
  */
 export function ToolbarNavigation({ children }) {
-  return <div className='header-shell__navigation-wrapper' />
+  return (
+    <div className='header-shell__navigation-wrapper'>
+      {children}
+    </div>
+  )
 }
 
 /**

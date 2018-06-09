@@ -19,8 +19,10 @@
   top: 0;
   bottom: 0;
   left: 0;
-  width: 56px;
+  width: 28px;
+  padding: 14px;
   background-color: transparent;
+  cursor: pointer;
 }
 
 .header-shell__settings-wrapper {
@@ -28,8 +30,8 @@
   top: 0;
   bottom: 0;
   right: 0;
-  width: 32px;
-  padding: 12px;
+  width: 28px;
+  padding: 14px;
   background-color: transparent;
   cursor: pointer;
 }

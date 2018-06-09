@@ -5,43 +5,53 @@
  * (https://github.com/matt-block/progressive-weather/blob/master/LICENSE)
  */
 
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
-import { push } from 'connected-react-router'
+import { push, goBack } from 'connected-react-router'
 import { Container } from '../PageUtils'
 import { ToolbarShell, ToolbarTitle, ToolbarNavigation, ToolbarSettings } from './Widgets'
-import { NotificationDot, SettingsIcon } from '../Icons'
+import { NotificationDot, SettingsIcon, BackIcon } from '../Icons'
 
-class Toolbar extends Component {
-  render() {
-    if (!this.props.currentData) { return null }
+function Toolbar(props) {
+  if (!props.currentData) { return null }
 
-    let title = this.props.currentData.locationName
-    let settingsIcon = (
-      <div onClick={this.props.goToSettings}>
-        <NotificationDot>
-          <SettingsIcon />
-        </NotificationDot>
+  let title = props.currentData.locationName
+  let settingsIcon = (
+    <div onClick={props.goToSettings}>
+      <NotificationDot>
+        <SettingsIcon />
+      </NotificationDot>
+    </div>
+  )
+
+  if (props.currentPath === '/settings') {
+    settingsIcon = null
+    title = 'Settings'
+  }
+
+  let backIcon = null
+
+  if (props.currentPath !== '/') {
+    backIcon = (
+      <div onClick={props.goBack}>
+        <BackIcon />
       </div>
     )
-
-    if (this.props.currentPath === '/settings') {
-      settingsIcon = null
-      title = 'Settings'
-    }
-
-    return (
-      <Container>
-        <ToolbarShell>
-          <ToolbarNavigation />
-          <ToolbarTitle title={title} />
-          <ToolbarSettings>
-            {settingsIcon}
-          </ToolbarSettings>
-        </ToolbarShell>
-      </Container>
-    )
   }
+
+  return (
+    <Container>
+      <ToolbarShell>
+        <ToolbarNavigation>
+          {backIcon}
+        </ToolbarNavigation>
+        <ToolbarTitle title={title} />
+        <ToolbarSettings>
+          {settingsIcon}
+        </ToolbarSettings>
+      </ToolbarShell>
+    </Container>
+  )
 }
 
 const mapStateToProps = (state) => ({
@@ -53,6 +63,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   goToSettings() {
     return dispatch(push('/settings'))
+  },
+  goBack() {
+    return dispatch(goBack())
   }
 })
 
