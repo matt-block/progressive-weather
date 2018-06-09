@@ -7,8 +7,10 @@
 
 import React from 'react'
 import { Provider } from 'react-redux'
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import { store } from './store'
+import { Switch, Route, Redirect } from 'react-router-dom'
+import { ConnectedRouter } from 'connected-react-router'
+import { history } from './history'
 import GeoHandler from './components/GeoHandler'
 import Toolbar from './components/Toolbar'
 import MainPage from './pages/MainPage'
@@ -20,12 +22,12 @@ function App() {
       <React.Fragment>
         <GeoHandler />
         <Toolbar />
-        <Router>
+        <ConnectedRouter history={history}>
           <Switch>
             <Route exact path='/' component={MainPage} />
             <Redirect to='/' />
           </Switch>
-        </Router>
+        </ConnectedRouter>
       </React.Fragment>
     </Provider>
   )
