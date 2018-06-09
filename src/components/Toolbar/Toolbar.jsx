@@ -15,15 +15,25 @@ class Toolbar extends Component {
   render() {
     if (!this.props.currentData) { return null }
 
+    let title = this.props.currentData.locationName
+    let settingsIcon = (
+      <NotificationDot>
+        <SettingsIcon />
+      </NotificationDot>
+    )
+
+    if (this.props.currentPath === '/settings') {
+      settingsIcon = null
+      title = 'Settings'
+    }
+
     return (
       <Container>
         <ToolbarShell>
           <ToolbarNavigation />
-          <ToolbarTitle title={this.props.currentData.locationName} />
+          <ToolbarTitle title={title} />
           <ToolbarSettings>
-            <NotificationDot>
-              <SettingsIcon />
-            </NotificationDot>
+            {settingsIcon}
           </ToolbarSettings>
         </ToolbarShell>
       </Container>
@@ -33,7 +43,8 @@ class Toolbar extends Component {
 
 const mapStateToProps = (state) => ({
   currentData: state.currentData,
-  isFetching: state.isFetching
+  isFetching: state.isFetching,
+  currentPath: state.router.location.pathname,
 })
 
 export default connect(mapStateToProps)(Toolbar)
