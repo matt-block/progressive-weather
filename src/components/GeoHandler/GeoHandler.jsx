@@ -7,7 +7,7 @@
 
 import { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchCurrentDataFor } from '../../store/actions'
+import { fetchCurrentDataFor, fetchForecastDataFor } from '../../store/actions'
 
 /**
  * Component responsable for handling geolocation requests.
@@ -26,6 +26,7 @@ class GeoHandler extends Component {
 
   onGeolocationSuccessful(position) {
     this.props.fetchData(position.coords.latitude, position.coords.longitude)
+    this.props.fetchForecast(position.coords.latitude, position.coords.longitude)
   }
 
   // TODO: onGeolocationUnsuccessful.
@@ -36,6 +37,9 @@ class GeoHandler extends Component {
 const mapDispatchToProps = (dispatch) => ({
   fetchData(latitude, longitude) {
     return dispatch(fetchCurrentDataFor(latitude, longitude))
+  },
+  fetchForecast(latitude, longitude) {
+    return dispatch(fetchForecastDataFor(latitude, longitude))
   }
 })
 
