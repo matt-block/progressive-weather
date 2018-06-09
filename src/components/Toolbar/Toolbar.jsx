@@ -7,6 +7,7 @@
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { push } from 'connected-react-router'
 import { Container } from '../PageUtils'
 import { ToolbarShell, ToolbarTitle, ToolbarNavigation, ToolbarSettings } from './Widgets'
 import { NotificationDot, SettingsIcon } from '../Icons'
@@ -17,9 +18,11 @@ class Toolbar extends Component {
 
     let title = this.props.currentData.locationName
     let settingsIcon = (
-      <NotificationDot>
-        <SettingsIcon />
-      </NotificationDot>
+      <div onClick={this.props.goToSettings}>
+        <NotificationDot>
+          <SettingsIcon />
+        </NotificationDot>
+      </div>
     )
 
     if (this.props.currentPath === '/settings') {
@@ -47,4 +50,10 @@ const mapStateToProps = (state) => ({
   currentPath: state.router.location.pathname,
 })
 
-export default connect(mapStateToProps)(Toolbar)
+const mapDispatchToProps = (dispatch) => ({
+  goToSettings() {
+    return dispatch(push('/settings'))
+  }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Toolbar)
