@@ -9,7 +9,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Container } from '../PageUtils'
 import { WeatherWidget, LoadingWidget, StylingWrapper, SecondaryWidget } from './Widgets'
-import { fetchCurrentDataFor } from '../store/actions'
+import { fetchCurrentDataFor } from '../../store/actions'
 
 class CurrentWeather extends Component {
   constructor(props) {

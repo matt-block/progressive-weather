@@ -9,7 +9,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import nanoid from 'nanoid'
 import { Container } from '../PageUtils'
-import { fetchForecastDataFor } from '../store/actions'
+import { fetchForecastDataFor } from '../../store/actions'
 import { ForecastList, ForecastDay } from './Widgets'
 
 class Forecast extends Component {

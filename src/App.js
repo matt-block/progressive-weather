@@ -7,23 +7,24 @@
 
 import React from 'react'
 import { Provider } from 'react-redux'
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import { store } from './store'
-import CurrentWeather from './CurrentWeather'
-import Forecast from './Forecast'
-import Toolbar from './Toolbar'
+import Toolbar from './components/Toolbar'
+import MainPage from './pages/MainPage'
 import './App.css'
 
 function App() {
   return (
     <Provider store={store}>
-      <BrowserRouter>
-        <React.Fragment>
-          <Route path='/' component={Toolbar} />
-          <Route path='/' component={CurrentWeather} />
-          <Route path='/' component={Forecast} />
-        </React.Fragment>
-      </BrowserRouter>
+      <React.Fragment>
+        <Toolbar />
+        <Router>
+          <Switch>
+            <Route exact path='/' component={MainPage} />
+            <Redirect to='/' />
+          </Switch>
+        </Router>
+      </React.Fragment>
     </Provider>
   )
 }

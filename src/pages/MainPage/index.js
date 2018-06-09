@@ -5,9 +5,6 @@
  * (https://github.com/matt-block/progressive-weather/blob/master/LICENSE)
  */
 
-import React from 'react'
-import icon from '../assets/ic_sunset.svg'
+import { MainPage } from './MainPage'
 
-export function SunsetIcon() {
-  return <img className='icon-sunset' src={icon} alt=''/>
-}
+export default MainPage

@@ -6,7 +6,7 @@
  */
 
 import React from 'react'
-import icon from '../assets/ic_settings.svg'
+import icon from '../../assets/ic_settings.svg'
 
 export function SettingsIcon() {
   return <img className='icon-settings' src={icon} alt=''/>

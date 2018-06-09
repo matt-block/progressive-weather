@@ -6,8 +6,8 @@
  */
 
 import React from 'react'
-import icon from '../assets/ic_wind.svg'
+import icon from '../../assets/ic_humidity.svg'
 
-export function WindIcon() {
-  return <img className='icon-wind' src={icon} alt=''/>
+export function HumidityIcon() {
+  return <img className='icon-humidity' src={icon} alt=''/>
 }
