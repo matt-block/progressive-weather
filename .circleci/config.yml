@@ -1,8 +1,11 @@
 version: 2
 jobs:
-  build:
+  test:
+    branches:
+      only:
+        - master
     docker:
-      - image: circleci/node:7.10
+      - image: circleci/node:8.11.2
 
     working_directory: ~/repo
 
@@ -23,9 +26,21 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-        
-      - run: 
+
+      - run:
           name: Run Tests
           command: yarn test
 
+      - run:
+          name: Create Production Build
+          command: yarn build
+          when: on_success
 
+      - run:
+          name: Deploy on Netlify
+          command: |
+            wget https://github.com/netlify/netlifyctl/releases/download/v0.4.0/netlifyctl-linux-amd64-0.4.0.tar.gz
+            tar -xzvf netlifyctl-linux-amd64-0.4.0.tar.gz
+            ./netlifyctl version
+            ./netlifyctl deploy -y -s $NETLIFY_SITE_ID -A $NETLIFY_TOKEN
+          when: on_success

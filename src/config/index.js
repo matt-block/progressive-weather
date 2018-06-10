@@ -10,7 +10,7 @@
  *
  * @see {@link https://openweathermap.org/appid}
  */
-export const API_KEY = process.env.OPENWEATHERMAP_KEY
+export const API_KEY = process.env.REACT_APP_OPENWEATHERMAP_KEY
 
 /**
  * OpenWeatherMap base endpoint.
