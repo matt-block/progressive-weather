@@ -8,6 +8,7 @@
 import React from 'react'
 import { Container } from '../PageUtils'
 import { WeatherIcon, WindIcon, HumidityIcon, SunsetIcon } from '../Icons'
+import Spinner from '../Spinner'
 import './Widgets.css'
 
 /**
@@ -75,7 +76,9 @@ export function SecondaryWidget(data) {
 export function LoadingWidget() {
   return (
     <section className='current-weather-widget'>
-      <p className='current-weather-widget__main'>Loading...</p>
+      <div className='current-weather-widget__spinner'>
+        <Spinner />
+      </div>
     </section>
   )
 }

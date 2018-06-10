@@ -8,6 +8,12 @@
   flex: 1;
 }
 
+.current-weather-widget__spinner {
+  margin: 30vh auto 0 auto;
+  width: 80px;
+  height: 80px;
+}
+
 .current-weather-widget__main-wrapper {
   display: flex;
   flex-direction: row;
