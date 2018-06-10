@@ -4,6 +4,7 @@ jobs:
     branches:
       only:
         - master
+
     docker:
       - image: circleci/node:8.11.2
 
@@ -34,7 +35,6 @@ jobs:
       - run:
           name: Create Production Build
           command: yarn build
-          when: on_success
 
       - run:
           name: Deploy on Netlify
@@ -43,4 +43,3 @@ jobs:
             tar -xzvf netlifyctl-linux-amd64-0.4.0.tar.gz
             ./netlifyctl version
             ./netlifyctl deploy -y -s $NETLIFY_SITE_ID -A $NETLIFY_TOKEN
-          when: on_success
