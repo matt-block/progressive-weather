@@ -45,3 +45,24 @@
 .settings__row-subtitle {
   color: #ffffff60;
 }
+
+.settings__row-link {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  list-style: none;
+  text-decoration: none;
+  color: inherit;
+}
+
+.settings__row-link-icon {
+  display: flex;
+  justify-content: center;
+}
+
+.settings__row-link-icon > img {
+  height: 20px;
+  width: 20px;
+}

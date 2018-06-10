@@ -7,7 +7,8 @@
 
 import React, { Component } from 'react'
 import { Container } from '../../components/PageUtils'
-import { SettingsRow, SettingsGroup } from './Widgets';
+import { SettingsRow, SettingsGroup, SettingsRowLink } from './Widgets'
+import { APP_REPO_LINK, APP_VERSION } from '../../config'
 
 class SettingsPage extends Component {
   render() {
@@ -16,7 +17,12 @@ class SettingsPage extends Component {
         <SettingsGroup title='About'>
           <SettingsRow
             title='Version'
-            subtitle='1.0.0'
+            subtitle={APP_VERSION}
+          />
+          <SettingsRowLink
+            title='Source code'
+            subtitle='Explore the source code on GitHub'
+            url={APP_REPO_LINK}
           />
         </SettingsGroup>
       </Container>

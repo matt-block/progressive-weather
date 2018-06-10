@@ -1,7 +1,27 @@
 {
   "name": "progressive-weather",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
+  "description": "A progressive web application build with React for weather forecast.",
+  "keywords": [
+    "weather",
+    "forecast",
+    "pwa",
+    "react",
+    "reactjs",
+    "openweathermap",
+    "openweathermapapi"
+  ],
+  "homepage": "https://github.com/matt-block/progressive-weather#readme",
+  "bugs": { "url": "https://github.com/matt-block/progressive-weather/issues" },
+  "license": "MIT",
+  "author": {
+    "name": "Matei Bogdan Radu",
+    "email": "matei.radu.92@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/matt-block/progressive-weather.git"
+  },
   "dependencies": {
     "connected-react-router": "^4.3.0",
     "flow-bin": "^0.73.0",
