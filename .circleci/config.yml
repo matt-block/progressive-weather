@@ -42,4 +42,4 @@ jobs:
             wget https://github.com/netlify/netlifyctl/releases/download/v0.4.0/netlifyctl-linux-amd64-0.4.0.tar.gz
             tar -xzvf netlifyctl-linux-amd64-0.4.0.tar.gz
             ./netlifyctl version
-            ./netlifyctl deploy -y -s $NETLIFY_SITE_ID -A $NETLIFY_TOKEN -b ./build/
+            ./netlifyctl deploy -y -s $NETLIFY_SITE_ID -A $NETLIFY_TOKEN -P ./build/
