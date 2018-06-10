@@ -4,6 +4,7 @@
  * Licensed under MIT
  * (https://github.com/matt-block/progressive-weather/blob/master/LICENSE)
  */
+
 const initialState = {
   currentData: undefined,
   forecastData: undefined,

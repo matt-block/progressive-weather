@@ -4,6 +4,7 @@
  * Licensed under MIT
  * (https://github.com/matt-block/progressive-weather/blob/master/LICENSE)
  */
+
 import { API_KEY } from '../config'
 import OpenWeatherMap from '../api/OpenWeatherMap'
 import moment from 'moment'

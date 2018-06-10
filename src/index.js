@@ -4,6 +4,7 @@
  * Licensed under MIT
  * (https://github.com/matt-block/progressive-weather/blob/master/LICENSE)
  */
+
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
