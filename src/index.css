@@ -13,3 +13,10 @@ body {
   color: rgb(216, 216, 216);
   background-color: #141518;
 }
+
+#root {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 72px);
+  padding-bottom: 72px;
+}
