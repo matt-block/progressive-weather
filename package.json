@@ -11,7 +11,6 @@
     "openweathermap",
     "openweathermapapi"
   ],
-  "homepage": "https://github.com/matt-block/progressive-weather#readme",
   "bugs": { "url": "https://github.com/matt-block/progressive-weather/issues" },
   "license": "MIT",
   "author": {
