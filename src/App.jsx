@@ -15,7 +15,6 @@ import GeoHandler from './components/GeoHandler'
 import Toolbar from './components/Toolbar'
 import MainPage from './pages/MainPage'
 import SettingsPage from './pages/SettingsPage'
-import './App.css'
 
 function App() {
   return (
