@@ -5,6 +5,6 @@
  * (https://github.com/matt-block/progressive-weather/blob/master/LICENSE)
  */
 
-import { Spinner } from './Spinner'
+import Spinner from './Spinner'
 
 export default Spinner

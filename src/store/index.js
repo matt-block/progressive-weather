@@ -7,16 +7,16 @@
 
 import { createStore, compose, applyMiddleware } from 'redux'
 import { connectRouter, routerMiddleware } from 'connected-react-router'
-import { history } from '../history'
 import thunk from 'redux-thunk'
-import { apiReducer } from './reducers'
+import history from '../history'
+import apiReducer from './reducers'
 
-export const store = createStore(
+const store = createStore(
   connectRouter(history)(apiReducer),
-  compose(
-    applyMiddleware(
-      thunk,
-      routerMiddleware(history)
-    )
-  )
+  compose(applyMiddleware(
+    thunk,
+    routerMiddleware(history),
+  )),
 )
+
+export default store

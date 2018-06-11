@@ -8,6 +8,8 @@
 import React from 'react'
 import icon from '../../assets/ic_humidity.svg'
 
-export function HumidityIcon() {
-  return <img className='icon-humidity' src={icon} alt=''/>
+function HumidityIcon() {
+  return <img className='icon-humidity' src={icon} alt='' />
 }
+
+export default HumidityIcon

@@ -40,7 +40,7 @@ class OpenWeatherMap {
     const data = await fetch(
       `${this.API_ENDPOINT_BASE}/weather?lat=${latitude}&lon=${longitude}&appid=${this.API_KEY}&units=${this.UNIT}&mode=${this.FORMAT}`,
       options)
-    return await data.json()
+    return data.json()
   }
 
   /**
@@ -57,7 +57,7 @@ class OpenWeatherMap {
     const data = await fetch(
       `${this.API_ENDPOINT_BASE}/forecast?lat=${latitude}&lon=${longitude}&appid=${this.API_KEY}&units=${this.UNIT}&mode=${this.FORMAT}`,
       options)
-    return await data.json()
+    return data.json()
   }
 }
 

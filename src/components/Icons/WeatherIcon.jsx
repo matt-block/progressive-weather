@@ -6,6 +6,7 @@
  */
 
 import React from 'react'
+import PropTypes from 'prop-types'
 import 'weather-underground-icons/dist/wu-icons-style.css'
 import './WeatherIcon.css'
 
@@ -14,8 +15,12 @@ import './WeatherIcon.css'
  *
  * @param {string} id Icon ID as provided by OpenWeatherMap
  */
-export function WeatherIcon({ id }) {
-  return <i className={`wu wu-white ${iconKeyMap[id]} wu-custom`}></i>
+function WeatherIcon({ id }) {
+  return <i className={`wu wu-white ${iconKeyMap[id]} wu-custom`} />
+}
+
+WeatherIcon.propTypes = {
+  id: PropTypes.string.isRequired,
 }
 
 /**
@@ -44,3 +49,5 @@ const iconKeyMap = {
   '50d': 'wu-fog',
   '50n': 'wu-fog',
 }
+
+export default WeatherIcon

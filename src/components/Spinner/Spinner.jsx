@@ -9,6 +9,8 @@ import React from 'react'
 import icon from '../../assets/ic_loading.svg'
 import './Spinner.css'
 
-export function Spinner() {
-  return <div className='spinner'><img src={icon} alt=''/></div>
+function Spinner() {
+  return <div className='spinner'><img src={icon} alt='' /></div>
 }
+
+export default Spinner

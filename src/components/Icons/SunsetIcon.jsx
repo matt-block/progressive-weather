@@ -8,6 +8,8 @@
 import React from 'react'
 import icon from '../../assets/ic_sunset.svg'
 
-export function SunsetIcon() {
-  return <img className='icon-sunset' src={icon} alt=''/>
+function SunsetIcon() {
+  return <img className='icon-sunset' src={icon} alt='' />
 }
+
+export default SunsetIcon

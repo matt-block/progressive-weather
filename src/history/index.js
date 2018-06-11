@@ -7,4 +7,6 @@
 
 import { createBrowserHistory } from 'history'
 
-export const history = createBrowserHistory()
+const history = createBrowserHistory()
+
+export default history

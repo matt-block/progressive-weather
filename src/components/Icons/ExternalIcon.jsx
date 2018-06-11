@@ -8,6 +8,8 @@
 import React from 'react'
 import icon from '../../assets/ic_external.svg'
 
-export function ExternalIcon() {
-  return <img className='icon-external' src={icon} alt=''/>
+function ExternalIcon() {
+  return <img className='icon-external' src={icon} alt='' />
 }
+
+export default ExternalIcon

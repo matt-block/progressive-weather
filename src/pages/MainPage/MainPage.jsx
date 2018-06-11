@@ -5,7 +5,7 @@
  * (https://github.com/matt-block/progressive-weather/blob/master/LICENSE)
  */
 
-import React from 'react'
+import React, { Fragment } from 'react'
 import CurrentWeather from '../../components/CurrentWeather'
 import Forecast from '../../components/Forecast'
 
@@ -14,11 +14,13 @@ import Forecast from '../../components/Forecast'
  *
  * This component will also be the fallback page for incorrect URLs.
  */
-export function MainPage() {
+function MainPage() {
   return (
-    <React.Fragment>
+    <Fragment>
       <CurrentWeather />
       <Forecast />
-    </React.Fragment>
+    </Fragment>
   )
 }
+
+export default MainPage
