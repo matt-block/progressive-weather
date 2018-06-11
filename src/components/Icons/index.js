@@ -5,11 +5,22 @@
  * (https://github.com/matt-block/progressive-weather/blob/master/LICENSE)
  */
 
-export { WeatherIcon } from './WeatherIcon'
-export { WindIcon } from './WindIcon'
-export { HumidityIcon } from './HumidityIcon'
-export { SunsetIcon } from './SunsetIcon'
-export { SettingsIcon } from './SettingsIcon'
-export { BackIcon } from './BackIcon'
-export { ExternalIcon } from './ExternalIcon'
-export { NotificationDot } from './NotificationDot'
+import WeatherIcon from './WeatherIcon'
+import WindIcon from './WindIcon'
+import HumidityIcon from './HumidityIcon'
+import SunsetIcon from './SunsetIcon'
+import SettingsIcon from './SettingsIcon'
+import ExternalIcon from './ExternalIcon'
+import BackIcon from './BackIcon'
+import NotificationDot from './NotificationDot'
+
+export {
+  WeatherIcon,
+  WindIcon,
+  HumidityIcon,
+  SunsetIcon,
+  SettingsIcon,
+  ExternalIcon,
+  BackIcon,
+  NotificationDot,
+}

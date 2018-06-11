@@ -38,9 +38,11 @@ class OpenWeatherMap {
   async getCurrentByCoordinates(latitude: number, longitude: number): any {
     const options = { method: 'GET' }
     const data = await fetch(
-      `${this.API_ENDPOINT_BASE}/weather?lat=${latitude}&lon=${longitude}&appid=${this.API_KEY}&units=${this.UNIT}&mode=${this.FORMAT}`,
-      options)
-    return await data.json()
+      `${this.API_ENDPOINT_BASE}/weather?lat=${latitude}&lon=${longitude}&appid=${this.API_KEY}` +
+      `&units=${this.UNIT}&mode=${this.FORMAT}`,
+      options,
+    )
+    return data.json()
   }
 
   /**
@@ -55,9 +57,11 @@ class OpenWeatherMap {
   async getForecasatByCoordinates(latitude: number, longitude: number): any {
     const options = { method: 'GET' }
     const data = await fetch(
-      `${this.API_ENDPOINT_BASE}/forecast?lat=${latitude}&lon=${longitude}&appid=${this.API_KEY}&units=${this.UNIT}&mode=${this.FORMAT}`,
-      options)
-    return await data.json()
+      `${this.API_ENDPOINT_BASE}/forecast?lat=${latitude}&lon=${longitude}&appid=${this.API_KEY}` +
+      `&units=${this.UNIT}&mode=${this.FORMAT}`,
+      options,
+    )
+    return data.json()
   }
 }
 

@@ -6,6 +6,7 @@
  */
 
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import nanoid from 'nanoid'
 import { Container } from '../PageUtils'
@@ -22,14 +23,28 @@ function Forecast({ forecastData, isFetching }) {
         </ForecastList>
       </Container>
     )
-  } else {
-    return <div></div>
   }
+
+  return <div />
 }
 
-const mapStateToProps = (state) => ({
+Forecast.propTypes = {
+  forecastData: PropTypes.arrayOf(PropTypes.shape({
+    day: PropTypes.number,
+    icon: PropTypes.string,
+    max: PropTypes.number,
+    min: PropTypes.number,
+  })),
+  isFetching: PropTypes.bool.isRequired,
+}
+
+Forecast.defaultProps = {
+  forecastData: undefined,
+}
+
+const mapStateToProps = state => ({
   forecastData: state.forecastData,
-  isFetching: state.isFetching
+  isFetching: state.isFetching,
 })
 
 export default connect(mapStateToProps)(Forecast)

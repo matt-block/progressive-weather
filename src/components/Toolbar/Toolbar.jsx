@@ -6,8 +6,10 @@
  */
 
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { push, goBack } from 'connected-react-router'
+import moment from 'moment'
 import { Container } from '../PageUtils'
 import { ToolbarShell, ToolbarTitle, ToolbarNavigation, ToolbarSettings } from './Widgets'
 import { NotificationDot, SettingsIcon, BackIcon } from '../Icons'
@@ -17,11 +19,11 @@ function Toolbar(props) {
 
   let title = props.currentData.locationName
   let settingsIcon = (
-    <div onClick={props.goToSettings}>
+    <button onClick={props.goToSettings}>
       <NotificationDot>
         <SettingsIcon />
       </NotificationDot>
-    </div>
+    </button>
   )
 
   if (props.currentPath === '/settings') {
@@ -33,9 +35,9 @@ function Toolbar(props) {
 
   if (props.currentPath !== '/') {
     backIcon = (
-      <div onClick={props.goBack}>
+      <button onClick={props.goBack}>
         <BackIcon />
-      </div>
+      </button>
     )
   }
 
@@ -54,19 +56,40 @@ function Toolbar(props) {
   )
 }
 
-const mapStateToProps = (state) => ({
+Toolbar.propTypes = {
+  currentData: PropTypes.shape({
+    locationName: PropTypes.string,
+    temperature: PropTypes.number,
+    temperatureMin: PropTypes.number,
+    temperatureMax: PropTypes.number,
+    humidity: PropTypes.number,
+    sunrise: PropTypes.instanceOf(moment),
+    sunset: PropTypes.instanceOf(moment),
+    description: PropTypes.string,
+    icon: PropTypes.string,
+    wind: PropTypes.number,
+  }),
+  currentPath: PropTypes.string.isRequired,
+  goBack: PropTypes.func.isRequired,
+  goToSettings: PropTypes.func.isRequired,
+}
+
+Toolbar.defaultProps = {
+  currentData: undefined,
+}
+
+const mapStateToProps = state => ({
   currentData: state.currentData,
-  isFetching: state.isFetching,
   currentPath: state.router.location.pathname,
 })
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   goToSettings() {
     return dispatch(push('/settings'))
   },
   goBack() {
     return dispatch(goBack())
-  }
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Toolbar)

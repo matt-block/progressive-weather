@@ -8,10 +8,10 @@
 const initialState = {
   currentData: undefined,
   forecastData: undefined,
-  isFetching: false
+  isFetching: false,
 }
 
-export const apiReducer = (state = initialState, action) => {
+const apiReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'API_ADD_DATA':
       return { ...state, currentData: action.currentData }
@@ -29,3 +29,5 @@ export const apiReducer = (state = initialState, action) => {
       return state
   }
 }
+
+export default apiReducer

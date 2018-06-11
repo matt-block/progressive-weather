@@ -6,6 +6,7 @@
  */
 
 import React from 'react'
+import PropTypes from 'prop-types'
 import './Container.css'
 
 /**
@@ -36,10 +37,23 @@ import './Container.css'
  * @see https://university.webflow.com/article/container
  * @see https://baymard.com/blog/line-length-readability
  */
-export function Container({ children }) {
+function Container({ children }) {
   return (
     <div className='container'>
       {children}
     </div>
   )
 }
+
+Container.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.element),
+    PropTypes.element,
+  ]),
+}
+
+Container.defaultProps = {
+  children: undefined,
+}
+
+export default Container

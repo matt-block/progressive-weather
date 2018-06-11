@@ -5,4 +5,6 @@
  * (https://github.com/matt-block/progressive-weather/blob/master/LICENSE)
  */
 
-export { Container } from './Container'
+import Container from './Container'
+
+export { Container }

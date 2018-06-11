@@ -6,8 +6,9 @@
  */
 
 import React from 'react'
+import PropTypes from 'prop-types'
 import './Widgets.css'
-import { ExternalIcon } from '../../components/Icons';
+import { ExternalIcon } from '../../components/Icons'
 
 export function SettingsRow({ title, subtitle, children }) {
   const subtitleText = subtitle ? <span className='settings__row-subtitle'>{subtitle}</span> : null
@@ -23,6 +24,17 @@ export function SettingsRow({ title, subtitle, children }) {
       </div>
     </li>
   )
+}
+
+SettingsRow.propTypes = {
+  title: PropTypes.string.isRequired,
+  subtitle: PropTypes.string,
+  children: PropTypes.element,
+}
+
+SettingsRow.defaultProps = {
+  subtitle: '',
+  children: null,
 }
 
 export function SettingsRowLink({ title, subtitle, url }) {
@@ -45,6 +57,16 @@ export function SettingsRowLink({ title, subtitle, url }) {
   )
 }
 
+SettingsRowLink.propTypes = {
+  title: PropTypes.string.isRequired,
+  subtitle: PropTypes.string,
+  url: PropTypes.string.isRequired,
+}
+
+SettingsRowLink.defaultProps = {
+  subtitle: '',
+}
+
 export function SettingsGroup({ title, children }) {
   return (
     <React.Fragment>
@@ -54,4 +76,9 @@ export function SettingsGroup({ title, children }) {
       </ul>
     </React.Fragment>
   )
+}
+
+SettingsGroup.propTypes = {
+  title: PropTypes.string.isRequired,
+  children: PropTypes.arrayOf(PropTypes.element).isRequired,
 }

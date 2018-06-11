@@ -6,6 +6,7 @@
  */
 
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Container } from '../PageUtils'
 import { WeatherIcon, WindIcon, HumidityIcon, SunsetIcon } from '../Icons'
 import Spinner from '../Spinner'
@@ -23,6 +24,9 @@ import './Widgets.css'
  * @param {string} data.icon Condition icon ID.
  */
 export function WeatherWidget(data) {
+  // TODO: investigate weird behaviour.
+  if (data.$$typeof) { return null }
+
   return (
     <section className='current-weather-widget'>
       <div className='current-weather-widget__main-wrapper'>
@@ -97,4 +101,19 @@ export function StylingWrapper({ children }) {
       </Container>
     </div>
   )
+}
+
+StylingWrapper.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.shape({
+      type: LoadingWidget,
+    }),
+    PropTypes.shape({
+      type: WeatherWidget,
+    }),
+  ]),
+}
+
+StylingWrapper.defaultProps = {
+  children: undefined,
 }

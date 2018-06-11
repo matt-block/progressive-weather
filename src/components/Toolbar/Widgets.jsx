@@ -6,6 +6,7 @@
  */
 
 import React from 'react'
+import PropTypes from 'prop-types'
 import './Widgets.css'
 
 export function ToolbarShell(props) {
@@ -16,8 +17,24 @@ export function ToolbarShell(props) {
   )
 }
 
+ToolbarShell.propTypes = {
+  children: PropTypes.arrayOf(PropTypes.element),
+}
+
+ToolbarShell.defaultProps = {
+  children: undefined,
+}
+
 export function ToolbarTitle({ title }) {
   return <h6 className='header-shell__title'>{title}</h6>
+}
+
+ToolbarTitle.propTypes = {
+  title: PropTypes.string,
+}
+
+ToolbarTitle.defaultProps = {
+  title: '',
 }
 
 /**
@@ -31,6 +48,14 @@ export function ToolbarNavigation({ children }) {
   )
 }
 
+ToolbarNavigation.propTypes = {
+  children: PropTypes.element,
+}
+
+ToolbarNavigation.defaultProps = {
+  children: undefined,
+}
+
 /**
  * Settings button wrapper.
  */
@@ -40,4 +65,12 @@ export function ToolbarSettings({ children }) {
       {children}
     </div>
   )
+}
+
+ToolbarSettings.propTypes = {
+  children: PropTypes.element,
+}
+
+ToolbarSettings.defaultProps = {
+  children: undefined,
 }

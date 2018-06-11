@@ -8,6 +8,8 @@
 import React from 'react'
 import icon from '../../assets/ic_back.svg'
 
-export function BackIcon() {
-  return <img className='icon-back' src={icon} alt=''/>
+function BackIcon() {
+  return <img className='icon-back' src={icon} alt='' />
 }
+
+export default BackIcon

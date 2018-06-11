@@ -6,8 +6,9 @@
  */
 
 import React from 'react'
-import './Widgets.css'
+import PropTypes from 'prop-types'
 import { WeatherIcon } from '../Icons'
+import './Widgets.css'
 
 /**
  * Widget that displays a list with the forecast days.
@@ -22,6 +23,16 @@ export function ForecastList({ children }) {
   )
 }
 
+ForecastList.propTypes = {
+  children: PropTypes.arrayOf(PropTypes.shape({
+    type: ForecastDay,
+  })),
+}
+
+ForecastList.defaultProps = {
+  children: undefined,
+}
+
 /**
  * List item that displays minimal predicted weather data for a future day.
  *
@@ -32,6 +43,9 @@ export function ForecastList({ children }) {
  * @param {number} data.min Minimum predicted temperature.
  */
 export function ForecastDay(data) {
+  // TODO: investigate weird behaviour.
+  if (data.$$typeof) { return null }
+
   return (
     <li className='forecast-list__item'>
       <span className='forecast-list__item-day'>{weekDay[data.day]}</span>

@@ -5,8 +5,10 @@
  * (https://github.com/matt-block/progressive-weather/blob/master/LICENSE)
  */
 
-import React from 'react'
+import React, { Fragment } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import moment from 'moment'
 import { Container } from '../PageUtils'
 import { WeatherWidget, LoadingWidget, StylingWrapper, SecondaryWidget } from './Widgets'
 
@@ -17,34 +19,54 @@ function CurrentWeather({ currentData, isFetching }) {
         <LoadingWidget />
       </StylingWrapper>
     )
-  } else {
-    return (
-      <React.Fragment>
-        <StylingWrapper>
-          <WeatherWidget
-            temp={currentData.temperature}
-            tempMin={currentData.temperatureMin}
-            tempMax={currentData.temperatureMax}
-            description={currentData.description}
-            icon={currentData.icon}
-          />
-        </StylingWrapper>
-        <Container>
-          <SecondaryWidget
-            wind={currentData.wind}
-            humidity={currentData.humidity}
-            sunrise={currentData.sunrise}
-            sunset={currentData.sunset}
-          />
-        </Container>
-      </React.Fragment>
-    )
   }
+
+  return (
+    <Fragment>
+      <StylingWrapper>
+        <WeatherWidget
+          temp={currentData.temperature}
+          tempMin={currentData.temperatureMin}
+          tempMax={currentData.temperatureMax}
+          description={currentData.description}
+          icon={currentData.icon}
+        />
+      </StylingWrapper>
+      <Container>
+        <SecondaryWidget
+          wind={currentData.wind}
+          humidity={currentData.humidity}
+          sunrise={currentData.sunrise}
+          sunset={currentData.sunset}
+        />
+      </Container>
+    </Fragment>
+  )
 }
 
-const mapStateToProps = (state) => ({
+CurrentWeather.propTypes = {
+  currentData: PropTypes.shape({
+    locationName: PropTypes.string,
+    temperature: PropTypes.number,
+    temperatureMin: PropTypes.number,
+    temperatureMax: PropTypes.number,
+    humidity: PropTypes.number,
+    sunrise: PropTypes.instanceOf(moment),
+    sunset: PropTypes.instanceOf(moment),
+    description: PropTypes.string,
+    icon: PropTypes.string,
+    wind: PropTypes.number,
+  }),
+  isFetching: PropTypes.bool.isRequired,
+}
+
+CurrentWeather.defaultProps = {
+  currentData: undefined,
+}
+
+const mapStateToProps = state => ({
   currentData: state.currentData,
-  isFetching: state.isFetching
+  isFetching: state.isFetching,
 })
 
 export default connect(mapStateToProps)(CurrentWeather)

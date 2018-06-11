@@ -6,6 +6,7 @@
  */
 
 import { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { fetchCurrentDataFor, fetchForecastDataFor } from '../../store/actions'
 
@@ -34,13 +35,18 @@ class GeoHandler extends Component {
   render() { return null }
 }
 
-const mapDispatchToProps = (dispatch) => ({
+GeoHandler.propTypes = {
+  fetchData: PropTypes.func.isRequired,
+  fetchForecast: PropTypes.func.isRequired,
+}
+
+const mapDispatchToProps = dispatch => ({
   fetchData(latitude, longitude) {
     return dispatch(fetchCurrentDataFor(latitude, longitude))
   },
   fetchForecast(latitude, longitude) {
     return dispatch(fetchForecastDataFor(latitude, longitude))
-  }
+  },
 })
 
 export default connect(undefined, mapDispatchToProps)(GeoHandler)

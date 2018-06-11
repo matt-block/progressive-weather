@@ -8,6 +8,8 @@
 import React from 'react'
 import icon from '../../assets/ic_wind.svg'
 
-export function WindIcon() {
-  return <img className='icon-wind' src={icon} alt=''/>
+function WindIcon() {
+  return <img className='icon-wind' src={icon} alt='' />
 }
+
+export default WindIcon

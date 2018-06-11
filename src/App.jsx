@@ -7,10 +7,10 @@
 
 import React from 'react'
 import { Provider } from 'react-redux'
-import { store } from './store'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import { ConnectedRouter } from 'connected-react-router'
-import { history } from './history'
+import store from './store'
+import history from './history'
 import GeoHandler from './components/GeoHandler'
 import Toolbar from './components/Toolbar'
 import MainPage from './pages/MainPage'

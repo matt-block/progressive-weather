@@ -6,6 +6,7 @@
  */
 
 import React from 'react'
+import PropTypes from 'prop-types'
 import './NotificationDot.css'
 
 /**
@@ -14,12 +15,23 @@ import './NotificationDot.css'
  * @param {boolean} isActive Flag for setting the notification dot on or off.
  * @param {Object} children Inner children, Ideally an Icon component.
  */
-export function NotificationDot({ isActive, children }) {
+function NotificationDot({ isActive, children }) {
   const dotClass = isActive ? 'icon-notification__dot' : 'icon-notification__dot icon-notification__dot--inactive'
   return (
     <div className='icon-notification'>
-      <div className={dotClass}/>
+      <div className={dotClass} />
       {children}
     </div>
   )
 }
+
+NotificationDot.propTypes = {
+  children: PropTypes.element.isRequired,
+  isActive: PropTypes.bool,
+}
+
+NotificationDot.defaultProps = {
+  isActive: false,
+}
+
+export default NotificationDot

@@ -5,9 +5,9 @@
  * (https://github.com/matt-block/progressive-weather/blob/master/LICENSE)
  */
 
+import moment from 'moment'
 import { API_KEY } from '../config'
 import OpenWeatherMap from '../api/OpenWeatherMap'
-import moment from 'moment'
 
 export const fetchCurrentDataFor = (latitude, longitude) => async (dispatch) => {
   dispatch(startApiFetching())
@@ -37,7 +37,7 @@ export const fetchForecastDataFor = (latitude, longitude) => async (dispatch) =>
   const weatherService = new OpenWeatherMap(API_KEY, 'metric')
   const rawData = await weatherService.getForecasatByCoordinates(latitude, longitude)
 
-  let daysSets = []
+  const daysSets = []
   daysSets[0] = []
   daysSets[1] = []
   daysSets[2] = []
@@ -45,7 +45,7 @@ export const fetchForecastDataFor = (latitude, longitude) => async (dispatch) =>
   const weekDayNumbers = []
 
   const today = moment().startOf('day')
-  rawData.list.map(set => {
+  rawData.list.map((set) => {
     const setDate = moment.unix(set.dt).startOf('day')
     switch (setDate.diff(today, 'days')) {
       case 1:
@@ -66,10 +66,10 @@ export const fetchForecastDataFor = (latitude, longitude) => async (dispatch) =>
   })
 
   const forecastData = daysSets.map((day, index) => ({
-    min: day.reduce((min, current) => current.main.temp_min <= min ? current.main.temp_min : min, 9999),
-    max: day.reduce((max, current) => current.main.temp_max >= max ? current.main.temp_max : max, -9999),
+    min: day.reduce((min, current) => (current.main.temp_min <= min ? current.main.temp_min : min), 9999),
+    max: day.reduce((max, current) => (current.main.temp_max >= max ? current.main.temp_max : max), -9999),
     icon: getMostFrequentIcon(day),
-    day: weekDayNumbers[index]
+    day: weekDayNumbers[index],
   }))
 
   dispatch(addApiForecast(forecastData))
@@ -78,28 +78,28 @@ export const fetchForecastDataFor = (latitude, longitude) => async (dispatch) =>
 
 export const addApiData = data => ({
   type: 'API_ADD_DATA',
-  currentData: data
+  currentData: data,
 })
 
 export const removeApiData = () => ({
-  type: 'API_REMOVE_DATA'
+  type: 'API_REMOVE_DATA',
 })
 
 export const addApiForecast = data => ({
   type: 'API_ADD_FORECAST',
-  forecastData: data
+  forecastData: data,
 })
 
 export const removeApiForecast = () => ({
-  type: 'API_REMOVE_FORECAST'
+  type: 'API_REMOVE_FORECAST',
 })
 
 export const startApiFetching = () => ({
-  type: 'API_START_FETCHING'
+  type: 'API_START_FETCHING',
 })
 
 export const stopApiFetching = () => ({
-  type: 'API_STOP_FETCHING'
+  type: 'API_STOP_FETCHING',
 })
 
 /**
@@ -108,16 +108,16 @@ export const stopApiFetching = () => ({
  * @param {Object[]} day Array of 3 hour data representing a forecast day.
  */
 function getMostFrequentIcon(day) {
-  let counts = {}
+  const counts = {}
   let compare = 0
   let mostFrequent
-  for (let i = 0, len = day.length; i < len; i++) {
-    let currentIcon = day[i].weather[0].icon
+  for (let i = 0, len = day.length; i < len; i += 1) {
+    const currentIcon = day[i].weather[0].icon
 
     if (counts[currentIcon] === undefined) {
       counts[currentIcon] = 1
     } else {
-      counts[currentIcon]++
+      counts[currentIcon] += 1
     }
 
     if (counts[currentIcon] > compare) {
