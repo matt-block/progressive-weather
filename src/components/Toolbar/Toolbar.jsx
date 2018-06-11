@@ -19,11 +19,11 @@ function Toolbar(props) {
 
   let title = props.currentData.locationName
   let settingsIcon = (
-    <div onClick={props.goToSettings}>
+    <button onClick={props.goToSettings}>
       <NotificationDot>
         <SettingsIcon />
       </NotificationDot>
-    </div>
+    </button>
   )
 
   if (props.currentPath === '/settings') {
@@ -35,9 +35,9 @@ function Toolbar(props) {
 
   if (props.currentPath !== '/') {
     backIcon = (
-      <div onClick={props.goBack}>
+      <button onClick={props.goBack}>
         <BackIcon />
-      </div>
+      </button>
     )
   }
 
