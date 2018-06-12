@@ -6,14 +6,38 @@
  */
 
 import React from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import ReactMarkdown from 'react-markdown'
 import { Container } from '../../components/PageUtils'
+import { fetchLicenseText } from '../../store/actions'
+import './LicensesPage.css'
 
-function LicensesPage() {
+function LicensesPage({ license, fetchLicense }) {
+  fetchLicense()
   return (
     <Container>
-      <div>Licenses here.</div>
+      <ReactMarkdown source={license} className='markdown' />
     </Container>
   )
 }
 
-export default LicensesPage
+LicensesPage.propTypes = {
+  license: PropTypes.string,
+  fetchLicense: PropTypes.func.isRequired,
+}
+
+LicensesPage.defaultProps = {
+  license: '',
+}
+
+const mapStateToProps = state => ({
+  license: state.license,
+})
+
+const mapDispatchToProps = dispatch => ({
+  fetchLicense() {
+    return dispatch(fetchLicenseText())
+  },
+})
+export default connect(mapStateToProps, mapDispatchToProps)(LicensesPage)

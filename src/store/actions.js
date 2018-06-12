@@ -8,6 +8,15 @@
 import moment from 'moment'
 import { API_KEY } from '../config'
 import OpenWeatherMap from '../api/OpenWeatherMap'
+import licensesPath from '../assets/third_party_licenses.md'
+
+export const fetchLicenseText = () => async (dispatch) => {
+  const text = await fetch(licensesPath).then(response => response.text())
+  dispatch({
+    type: 'LICENSE_FETCH',
+    license: text,
+  })
+}
 
 export const fetchCurrentDataFor = (latitude, longitude) => async (dispatch) => {
   dispatch(startApiFetching())
