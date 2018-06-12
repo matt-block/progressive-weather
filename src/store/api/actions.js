@@ -9,6 +9,59 @@ import moment from 'moment'
 import { API_KEY } from '../../config'
 import OpenWeatherMap from '../../api/OpenWeatherMap'
 
+export const addApiData = data => ({
+  type: 'API_ADD_DATA',
+  currentData: data,
+})
+
+export const removeApiData = () => ({
+  type: 'API_REMOVE_DATA',
+})
+
+export const addApiForecast = data => ({
+  type: 'API_ADD_FORECAST',
+  forecastData: data,
+})
+
+export const removeApiForecast = () => ({
+  type: 'API_REMOVE_FORECAST',
+})
+
+export const startApiFetching = () => ({
+  type: 'API_START_FETCHING',
+})
+
+export const stopApiFetching = () => ({
+  type: 'API_STOP_FETCHING',
+})
+
+/**
+ * Gets the most frequent weather icon for a forecasted day.
+ *
+ * @param {Object[]} day Array of 3 hour data representing a forecast day.
+ */
+function getMostFrequentIcon(day) {
+  const counts = {}
+  let compare = 0
+  let mostFrequent
+  for (let i = 0, len = day.length; i < len; i += 1) {
+    const currentIcon = day[i].weather[0].icon
+
+    if (counts[currentIcon] === undefined) {
+      counts[currentIcon] = 1
+    } else {
+      counts[currentIcon] += 1
+    }
+
+    if (counts[currentIcon] > compare) {
+      compare = counts[currentIcon]
+      mostFrequent = day[i].weather[0].icon
+    }
+  }
+
+  return mostFrequent
+}
+
 export const fetchCurrentDataFor = (latitude, longitude) => async (dispatch) => {
   dispatch(startApiFetching())
 
@@ -74,57 +127,4 @@ export const fetchForecastDataFor = (latitude, longitude) => async (dispatch) =>
 
   dispatch(addApiForecast(forecastData))
   dispatch(stopApiFetching())
-}
-
-export const addApiData = data => ({
-  type: 'API_ADD_DATA',
-  currentData: data,
-})
-
-export const removeApiData = () => ({
-  type: 'API_REMOVE_DATA',
-})
-
-export const addApiForecast = data => ({
-  type: 'API_ADD_FORECAST',
-  forecastData: data,
-})
-
-export const removeApiForecast = () => ({
-  type: 'API_REMOVE_FORECAST',
-})
-
-export const startApiFetching = () => ({
-  type: 'API_START_FETCHING',
-})
-
-export const stopApiFetching = () => ({
-  type: 'API_STOP_FETCHING',
-})
-
-/**
- * Gets the most frequent weather icon for a forecasted day.
- *
- * @param {Object[]} day Array of 3 hour data representing a forecast day.
- */
-function getMostFrequentIcon(day) {
-  const counts = {}
-  let compare = 0
-  let mostFrequent
-  for (let i = 0, len = day.length; i < len; i += 1) {
-    const currentIcon = day[i].weather[0].icon
-
-    if (counts[currentIcon] === undefined) {
-      counts[currentIcon] = 1
-    } else {
-      counts[currentIcon] += 1
-    }
-
-    if (counts[currentIcon] > compare) {
-      compare = counts[currentIcon]
-      mostFrequent = day[i].weather[0].icon
-    }
-  }
-
-  return mostFrequent
 }

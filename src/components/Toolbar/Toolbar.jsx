@@ -10,7 +10,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { push, goBack } from 'connected-react-router'
 import moment from 'moment'
-import { Container } from '../PageUtils'
+import Container from '../PageUtils'
 import { ToolbarShell, ToolbarTitle, ToolbarNavigation, ToolbarSettings } from './Widgets'
 import { NotificationDot, SettingsIcon, BackIcon } from '../Icons'
 

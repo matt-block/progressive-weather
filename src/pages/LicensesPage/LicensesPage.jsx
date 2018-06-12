@@ -9,7 +9,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import ReactMarkdown from 'react-markdown'
-import { Container } from '../../components/PageUtils'
+import Container from '../../components/PageUtils'
 import fetchLicenseText from '../../store/licenses/actions'
 import './LicensesPage.css'
 

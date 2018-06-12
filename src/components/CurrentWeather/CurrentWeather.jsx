@@ -9,7 +9,7 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import moment from 'moment'
-import { Container } from '../PageUtils'
+import Container from '../PageUtils'
 import { WeatherWidget, LoadingWidget, StylingWrapper, SecondaryWidget } from './Widgets'
 
 function CurrentWeather({ currentData, isFetching }) {

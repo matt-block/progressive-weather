@@ -6,7 +6,7 @@
  */
 
 import React from 'react'
-import { Container } from '../../components/PageUtils'
+import Container from '../../components/PageUtils'
 import { SettingsRow, SettingsGroup, SettingsRowLink, SettingsRowInternalLink } from './Widgets'
 import { APP_REPO_LINK, APP_VERSION } from '../../config'
 

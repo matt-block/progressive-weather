@@ -11,19 +11,6 @@ import 'weather-underground-icons/dist/wu-icons-style.css'
 import './WeatherIcon.css'
 
 /**
- * Displays a weather icon.
- *
- * @param {string} id Icon ID as provided by OpenWeatherMap
- */
-function WeatherIcon({ id }) {
-  return <i className={`wu wu-white ${iconKeyMap[id]} wu-custom`} />
-}
-
-WeatherIcon.propTypes = {
-  id: PropTypes.string.isRequired,
-}
-
-/**
  * Map between OpenWeatherMap icon IDs and Weather Underground icons.
  *
  * @see https://github.com/manifestinteractive/weather-underground-icons#day-icon-key
@@ -48,6 +35,19 @@ const iconKeyMap = {
   '13n': 'wu-snow',
   '50d': 'wu-fog',
   '50n': 'wu-fog',
+}
+
+/**
+ * Displays a weather icon.
+ *
+ * @param {string} id Icon ID as provided by OpenWeatherMap
+ */
+function WeatherIcon({ id }) {
+  return <i className={`wu wu-white ${iconKeyMap[id]} wu-custom`} />
+}
+
+WeatherIcon.propTypes = {
+  id: PropTypes.string.isRequired,
 }
 
 export default WeatherIcon
