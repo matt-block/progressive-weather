@@ -9,7 +9,6 @@ const initialState = {
   currentData: undefined,
   forecastData: undefined,
   isFetching: false,
-  license: undefined,
 }
 
 const apiReducer = (state = initialState, action) => {
@@ -26,8 +25,6 @@ const apiReducer = (state = initialState, action) => {
       return { ...state, isFetching: true }
     case 'API_STOP_FETCHING':
       return { ...state, isFetching: false }
-    case 'LICENSE_FETCH':
-      return { ...state, license: action.license }
     default:
       return state
   }

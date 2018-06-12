@@ -84,7 +84,7 @@ Toolbar.defaultProps = {
 }
 
 const mapStateToProps = state => ({
-  currentData: state.currentData,
+  currentData: state.api.currentData,
   currentPath: state.router.location.pathname,
 })
 

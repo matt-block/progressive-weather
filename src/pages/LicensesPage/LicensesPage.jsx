@@ -10,14 +10,21 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import ReactMarkdown from 'react-markdown'
 import { Container } from '../../components/PageUtils'
-import { fetchLicenseText } from '../../store/actions'
+import fetchLicenseText from '../../store/licenses/actions'
 import './LicensesPage.css'
 
+/**
+ * Page responsable for displaying all third-party software licenses.
+ */
 function LicensesPage({ license, fetchLicense }) {
   fetchLicense()
+
   return (
     <Container>
-      <ReactMarkdown source={license} className='markdown' />
+      <ReactMarkdown
+        source={license}
+        className='react-markdown-custom'
+      />
     </Container>
   )
 }
@@ -32,7 +39,7 @@ LicensesPage.defaultProps = {
 }
 
 const mapStateToProps = state => ({
-  license: state.license,
+  license: state.licenses,
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -40,4 +47,5 @@ const mapDispatchToProps = dispatch => ({
     return dispatch(fetchLicenseText())
   },
 })
+
 export default connect(mapStateToProps, mapDispatchToProps)(LicensesPage)

@@ -43,8 +43,8 @@ Forecast.defaultProps = {
 }
 
 const mapStateToProps = state => ({
-  forecastData: state.forecastData,
-  isFetching: state.isFetching,
+  forecastData: state.api.forecastData,
+  isFetching: state.api.isFetching,
 })
 
 export default connect(mapStateToProps)(Forecast)

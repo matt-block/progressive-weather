@@ -65,8 +65,8 @@ CurrentWeather.defaultProps = {
 }
 
 const mapStateToProps = state => ({
-  currentData: state.currentData,
-  isFetching: state.isFetching,
+  currentData: state.api.currentData,
+  isFetching: state.api.isFetching,
 })
 
 export default connect(mapStateToProps)(CurrentWeather)
