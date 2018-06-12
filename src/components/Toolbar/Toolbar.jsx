@@ -31,6 +31,11 @@ function Toolbar(props) {
     title = 'Settings'
   }
 
+  if (props.currentPath === '/licenses') {
+    settingsIcon = null
+    title = 'Licenses'
+  }
+
   let backIcon = null
 
   if (props.currentPath !== '/') {

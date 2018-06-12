@@ -6,6 +6,7 @@
  */
 
 import React from 'react'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import './Widgets.css'
 import { ExternalIcon } from '../../components/Icons'
@@ -64,6 +65,32 @@ SettingsRowLink.propTypes = {
 }
 
 SettingsRowLink.defaultProps = {
+  subtitle: '',
+}
+
+export function SettingsRowInternalLink({ title, subtitle, url }) {
+  const subtitleText = subtitle ? <span className='settings__row-subtitle'>{subtitle}</span> : null
+
+  return (
+    <li className='settings__row'>
+      <Link to={url} className='settings__row-link'>
+        <div className='settings_row-title-wrapper'>
+          <span className='settings__row-title'>{title}</span>
+          {subtitleText}
+        </div>
+        <div className='settings__row-side-content' />
+      </Link>
+    </li>
+  )
+}
+
+SettingsRowInternalLink.propTypes = {
+  title: PropTypes.string.isRequired,
+  subtitle: PropTypes.string,
+  url: PropTypes.string.isRequired,
+}
+
+SettingsRowInternalLink.defaultProps = {
   subtitle: '',
 }
 

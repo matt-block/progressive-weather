@@ -7,7 +7,7 @@
 
 import React from 'react'
 import { Container } from '../../components/PageUtils'
-import { SettingsRow, SettingsGroup, SettingsRowLink } from './Widgets'
+import { SettingsRow, SettingsGroup, SettingsRowLink, SettingsRowInternalLink } from './Widgets'
 import { APP_REPO_LINK, APP_VERSION } from '../../config'
 
 function SettingsPage() {
@@ -22,6 +22,10 @@ function SettingsPage() {
           title='Source code'
           subtitle='Explore the source code on GitHub'
           url={APP_REPO_LINK}
+        />
+        <SettingsRowInternalLink
+          title='Third-party licenses'
+          url='/licenses'
         />
       </SettingsGroup>
     </Container>
