@@ -9,6 +9,7 @@ const initialState = {
   currentData: undefined,
   forecastData: undefined,
   isFetching: false,
+  error: undefined,
 }
 
 const apiReducer = (state = initialState, action) => {
@@ -25,6 +26,10 @@ const apiReducer = (state = initialState, action) => {
       return { ...state, isFetching: true }
     case 'API_STOP_FETCHING':
       return { ...state, isFetching: false }
+    case 'API_ADD_ERROR':
+      return { ...state, error: action.error }
+    case 'API_REMOVE_ERROR':
+      return { ...state, error: undefined }
     default:
       return state
   }

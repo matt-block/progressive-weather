@@ -35,6 +35,15 @@ export const stopApiFetching = () => ({
   type: 'API_STOP_FETCHING',
 })
 
+export const addApiError = error => ({
+  type: 'API_ADD_ERROR',
+  error,
+})
+
+export const removeApiError = () => ({
+  type: 'API_REMOVE_ERROR',
+})
+
 /**
  * Gets the most frequent weather icon for a forecasted day.
  *
@@ -66,7 +75,15 @@ export const fetchCurrentDataFor = (latitude, longitude) => async (dispatch) => 
   dispatch(startApiFetching())
 
   const weatherService = new OpenWeatherMap(API_KEY, 'metric')
-  const rawData = await weatherService.getCurrentByCoordinates(latitude, longitude)
+  let rawData
+
+  try {
+    rawData = await weatherService.getCurrentByCoordinates(latitude, longitude)
+  } catch (error) {
+    dispatch(addApiError(error))
+    dispatch(stopApiFetching())
+    return
+  }
 
   const currentData = {}
   currentData.locationName = rawData.name
@@ -88,7 +105,15 @@ export const fetchForecastDataFor = (latitude, longitude) => async (dispatch) =>
   dispatch(startApiFetching())
 
   const weatherService = new OpenWeatherMap(API_KEY, 'metric')
-  const rawData = await weatherService.getForecasatByCoordinates(latitude, longitude)
+  let rawData
+
+  try {
+    rawData = await weatherService.getForecasatByCoordinates(latitude, longitude)
+  } catch (error) {
+    dispatch(addApiError(error))
+    dispatch(stopApiFetching())
+    return
+  }
 
   const daysSets = []
   daysSets[0] = []
