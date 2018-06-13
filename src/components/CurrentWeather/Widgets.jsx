@@ -7,7 +7,7 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Container } from '../PageUtils'
+import Container from '../PageUtils'
 import { WeatherIcon, WindIcon, HumidityIcon, SunsetIcon } from '../Icons'
 import Spinner from '../Spinner'
 import './Widgets.css'

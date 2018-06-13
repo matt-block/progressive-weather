@@ -10,15 +10,20 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { push, goBack } from 'connected-react-router'
 import moment from 'moment'
-import { Container } from '../PageUtils'
+import Container from '../PageUtils'
 import { ToolbarShell, ToolbarTitle, ToolbarNavigation, ToolbarSettings } from './Widgets'
 import { NotificationDot, SettingsIcon, BackIcon } from '../Icons'
 
 function Toolbar(props) {
   if (!props.currentData) { return null }
 
-  let title = props.currentData.locationName
-  let settingsIcon = (
+  const backIcon = (
+    <button onClick={props.goBack}>
+      <BackIcon />
+    </button>
+  )
+
+  const settingsIcon = (
     <button onClick={props.goToSettings}>
       <NotificationDot>
         <SettingsIcon />
@@ -26,30 +31,19 @@ function Toolbar(props) {
     </button>
   )
 
-  if (props.currentPath === '/settings') {
-    settingsIcon = null
-    title = 'Settings'
-  }
-
-  let backIcon = null
-
-  if (props.currentPath !== '/') {
-    backIcon = (
-      <button onClick={props.goBack}>
-        <BackIcon />
-      </button>
-    )
-  }
+  let title = props.currentData.locationName
+  if (props.currentPath === '/settings') { title = 'Settings' }
+  if (props.currentPath === '/licenses') { title = 'Licenses' }
 
   return (
     <Container>
       <ToolbarShell>
         <ToolbarNavigation>
-          {backIcon}
+          {props.currentPath !== '/' ? backIcon : null}
         </ToolbarNavigation>
         <ToolbarTitle title={title} />
         <ToolbarSettings>
-          {settingsIcon}
+          {props.currentPath === '/' ? settingsIcon : null}
         </ToolbarSettings>
       </ToolbarShell>
     </Container>
@@ -79,7 +73,7 @@ Toolbar.defaultProps = {
 }
 
 const mapStateToProps = state => ({
-  currentData: state.currentData,
+  currentData: state.api.currentData,
   currentPath: state.router.location.pathname,
 })
 

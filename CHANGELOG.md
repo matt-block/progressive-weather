@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2018-06-13
+### Added
+- Third-party licenses page (via _Settings > Third-party licenses_)
+### Changed
+- Ejected application from `create-react-app`
+- Refactored `Toolbar` logic concerning buttons visibility
+### Fixed
+- `SettingsRow`, `SettingsRowLink` and `SettingsRowInternalLink` not displaying
+correctly the row title if no subtitle is provided.
+
 ## [1.0.1] - 2018-06-11
 ### Changed
 - All existing code was refactored to comply with the Airbnb React/JSX Style Guide.
@@ -15,5 +25,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   - Display forecast for the next three days (min, max and condition icon)
   - Settings page with _about_ section
 
+[1.1.0]: https://github.com/matt-block/progressive-weather/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/matt-block/progressive-weather/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/matt-block/progressive-weather/compare/e0ae34c0d9e28cb00316093fba3c53d12c51bd55...v1.0.0

@@ -9,7 +9,7 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import moment from 'moment'
-import { Container } from '../PageUtils'
+import Container from '../PageUtils'
 import { WeatherWidget, LoadingWidget, StylingWrapper, SecondaryWidget } from './Widgets'
 
 function CurrentWeather({ currentData, isFetching }) {
@@ -65,8 +65,8 @@ CurrentWeather.defaultProps = {
 }
 
 const mapStateToProps = state => ({
-  currentData: state.currentData,
-  isFetching: state.isFetching,
+  currentData: state.api.currentData,
+  isFetching: state.api.isFetching,
 })
 
 export default connect(mapStateToProps)(CurrentWeather)

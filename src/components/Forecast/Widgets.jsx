@@ -10,27 +10,14 @@ import PropTypes from 'prop-types'
 import { WeatherIcon } from '../Icons'
 import './Widgets.css'
 
-/**
- * Widget that displays a list with the forecast days.
- */
-export function ForecastList({ children }) {
-  return (
-    <section className='forecast-widget'>
-      <ul className='forecast-list'>
-        {children}
-      </ul>
-    </section>
-  )
-}
-
-ForecastList.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.shape({
-    type: ForecastDay,
-  })),
-}
-
-ForecastList.defaultProps = {
-  children: undefined,
+const weekDay = {
+  1: 'Monday',
+  2: 'Tuesday',
+  3: 'Wednesday',
+  4: 'Thursday',
+  5: 'Friday',
+  6: 'Saturday',
+  7: 'Sunday',
 }
 
 /**
@@ -59,12 +46,25 @@ export function ForecastDay(data) {
   )
 }
 
-const weekDay = {
-  1: 'Monday',
-  2: 'Tuesday',
-  3: 'Wednesday',
-  4: 'Thursday',
-  5: 'Friday',
-  6: 'Saturday',
-  7: 'Sunday',
+/**
+ * Widget that displays a list with the forecast days.
+ */
+export function ForecastList({ children }) {
+  return (
+    <section className='forecast-widget'>
+      <ul className='forecast-list'>
+        {children}
+      </ul>
+    </section>
+  )
+}
+
+ForecastList.propTypes = {
+  children: PropTypes.arrayOf(PropTypes.shape({
+    type: ForecastDay,
+  })),
+}
+
+ForecastList.defaultProps = {
+  children: undefined,
 }

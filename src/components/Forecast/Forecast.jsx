@@ -9,7 +9,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import nanoid from 'nanoid'
-import { Container } from '../PageUtils'
+import Container from '../PageUtils'
 import { ForecastList, ForecastDay } from './Widgets'
 
 function Forecast({ forecastData, isFetching }) {
@@ -43,8 +43,8 @@ Forecast.defaultProps = {
 }
 
 const mapStateToProps = state => ({
-  forecastData: state.forecastData,
-  isFetching: state.isFetching,
+  forecastData: state.api.forecastData,
+  isFetching: state.api.isFetching,
 })
 
 export default connect(mapStateToProps)(Forecast)

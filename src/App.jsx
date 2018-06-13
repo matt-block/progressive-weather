@@ -15,6 +15,7 @@ import GeoHandler from './components/GeoHandler'
 import Toolbar from './components/Toolbar'
 import MainPage from './pages/MainPage'
 import SettingsPage from './pages/SettingsPage'
+import LicensesPage from './pages/LicensesPage'
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Switch>
             <Route exact path='/' component={MainPage} />
             <Route path='/settings' component={SettingsPage} />
+            <Route path='/licenses' component={LicensesPage} />
             <Redirect to='/' />
           </Switch>
         </ConnectedRouter>
