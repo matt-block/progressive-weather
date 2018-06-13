@@ -7,8 +7,19 @@
 
 .network-error {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
   padding: 0 36px;
+}
+
+.network-error__icon-wrapper {
+  width: 96px;
+}
+
+@media(min-width: 768px) {
+  .network-error__icon-wrapper {
+    width: 160px;
+  }
 }

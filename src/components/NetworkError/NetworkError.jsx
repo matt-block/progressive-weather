@@ -8,6 +8,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Container from '../PageUtils'
+import { OfflineIcon } from '../Icons'
 import './NetworkError.css'
 
 function NetworkError({ error }) {
@@ -16,6 +17,9 @@ function NetworkError({ error }) {
   return (
     <Container>
       <div className='network-error'>
+        <div className='network-error__icon-wrapper'>
+          <OfflineIcon />
+        </div>
         <span>{message}</span>
       </div>
     </Container>
