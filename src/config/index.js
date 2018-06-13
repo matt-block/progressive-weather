@@ -24,7 +24,7 @@ export const API_ENDPOINT_BASE = 'https://api.openweathermap.org/data/2.5'
  *
  * @see {@link https://semver.org/}
  */
-export const APP_VERSION = '1.1.0'
+export const APP_VERSION = '1.1.1'
 
 /**
  * URL of the application repository.
