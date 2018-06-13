@@ -12,7 +12,9 @@ import { OfflineIcon } from '../Icons'
 import './NetworkError.css'
 
 function NetworkError({ error }) {
-  const message = error === 'Failed to fetch' ? 'Cannot connect' : 'Something went wrong'
+  const message = error === 'Failed to fetch' ?
+    'You appear to be offline. Check your connection.' :
+    'Something went wrong'
 
   return (
     <Container>
