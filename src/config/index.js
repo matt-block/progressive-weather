@@ -13,11 +13,6 @@
 export const API_KEY = process.env.REACT_APP_OPENWEATHERMAP_KEY
 
 /**
- * OpenWeatherMap base endpoint.
- */
-export const API_ENDPOINT_BASE = 'https://api.openweathermap.org/data/2.5'
-
-/**
  * Application version.
  *
  * The version adheres to semantic versioning.
