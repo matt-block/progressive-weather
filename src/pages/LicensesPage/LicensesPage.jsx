@@ -5,37 +5,55 @@
  * (https://github.com/matt-block/progressive-weather/blob/master/LICENSE)
  */
 
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import ReactMarkdown from 'react-markdown'
 import Container from '../../components/PageUtils'
-import fetchLicenseText from '../../store/licenses/actions'
+import Spinner from '../../components/Spinner'
+import { fetchLicenseText, removeLicensesText } from '../../store/licenses/actions'
 import './LicensesPage.css'
 
 /**
  * Page responsable for displaying all third-party software licenses.
  */
-function LicensesPage({ license, fetchLicense }) {
-  fetchLicense()
+class LicensesPage extends Component {
+  componentWillUnmount() {
+    this.props.removeLicense()
+  }
 
-  return (
-    <Container>
-      <ReactMarkdown
-        source={license}
-        className='react-markdown-custom'
-      />
-    </Container>
-  )
+  render() {
+    if (!this.props.license) {
+      this.props.fetchLicense()
+
+      return (
+        <Container>
+          <div className='current-weather-widget__spinner'>
+            <Spinner />
+          </div>
+        </Container>
+      )
+    }
+
+    return (
+      <Container>
+        <ReactMarkdown
+          source={this.props.license}
+          className='react-markdown-custom'
+        />
+      </Container>
+    )
+  }
 }
 
 LicensesPage.propTypes = {
   license: PropTypes.string,
   fetchLicense: PropTypes.func.isRequired,
+  removeLicense: PropTypes.func.isRequired,
 }
 
 LicensesPage.defaultProps = {
-  license: '',
+  license: undefined,
 }
 
 const mapStateToProps = state => ({
@@ -45,6 +63,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   fetchLicense() {
     return dispatch(fetchLicenseText())
+  },
+  removeLicense() {
+    return dispatch(removeLicensesText())
   },
 })
 

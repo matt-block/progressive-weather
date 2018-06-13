@@ -9,6 +9,8 @@ const licensesReducer = (state = null, action) => {
   switch (action.type) {
     case 'LICENSES_ADD':
       return action.licenses
+    case 'LICENSES_REMOVE':
+      return null
     default:
       return state
   }
