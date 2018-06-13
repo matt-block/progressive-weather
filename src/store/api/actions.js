@@ -80,7 +80,7 @@ export const fetchCurrentDataFor = (latitude, longitude) => async (dispatch) => 
   try {
     rawData = await weatherService.getCurrentByCoordinates(latitude, longitude)
   } catch (error) {
-    dispatch(addApiError(error))
+    dispatch(addApiError(error.message))
     dispatch(stopApiFetching())
     return
   }
@@ -110,7 +110,7 @@ export const fetchForecastDataFor = (latitude, longitude) => async (dispatch) =>
   try {
     rawData = await weatherService.getForecasatByCoordinates(latitude, longitude)
   } catch (error) {
-    dispatch(addApiError(error))
+    dispatch(addApiError(error.message))
     dispatch(stopApiFetching())
     return
   }
