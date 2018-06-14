@@ -6,18 +6,22 @@
  */
 
 import React from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import Container from '../../components/PageUtils'
-import { SettingsRow, SettingsGroup, SettingsRowLink, SettingsRowInternalLink } from './Widgets'
+import { SettingsRow, SettingsGroup, SettingsRowLink, SettingsRowInternalLink, UpdateRow } from './Widgets'
 import { APP_REPO_LINK, APP_VERSION } from '../../config'
 
-function SettingsPage() {
+function SettingsPage({ notificationEnabled }) {
   return (
     <Container>
       <SettingsGroup title='About'>
         <SettingsRow
           title='Version'
           subtitle={APP_VERSION}
-        />
+        >
+          {notificationEnabled ? <UpdateRow /> : null}
+        </SettingsRow>
         <SettingsRowLink
           title='Source code'
           subtitle='Explore the source code on GitHub'
@@ -32,4 +36,16 @@ function SettingsPage() {
   )
 }
 
-export default SettingsPage
+SettingsPage.propTypes = {
+  notificationEnabled: PropTypes.bool,
+}
+
+SettingsPage.defaultProps = {
+  notificationEnabled: false,
+}
+
+const mapStateToProps = state => ({
+  notificationEnabled: state.app.notification,
+})
+
+export default connect(mapStateToProps)(SettingsPage)
