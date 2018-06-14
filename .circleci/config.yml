@@ -45,4 +45,4 @@ jobs:
 
       - run:
           name: Upload coverage report to Codecov
-          command: ./node_modules/codecov/bin.codecov
+          command: ./node_modules/codecov/bin/codecov
