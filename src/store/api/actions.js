@@ -71,11 +71,11 @@ function getMostFrequentIcon(day) {
   return mostFrequent
 }
 
-export const fetchCurrentDataFor = (latitude, longitude) => async (dispatch) => {
+export const fetchCurrentDataFor = (latitude, longitude) => async (dispatch, getState) => {
   dispatch(startApiFetching())
 
   try {
-    const weatherService = new OpenWeatherMap(API_KEY, 'metric')
+    const weatherService = new OpenWeatherMap(API_KEY, getState().app.unit)
     const rawData = await weatherService.getCurrentByCoordinates(latitude, longitude)
 
     const currentData = {
@@ -126,11 +126,11 @@ function generateDaysSets(rawData) {
   return daysSets
 }
 
-export const fetchForecastDataFor = (latitude, longitude) => async (dispatch) => {
+export const fetchForecastDataFor = (latitude, longitude) => async (dispatch, getState) => {
   dispatch(startApiFetching())
 
   try {
-    const weatherService = new OpenWeatherMap(API_KEY, 'metric')
+    const weatherService = new OpenWeatherMap(API_KEY, getState().app.unit)
     const rawData = await weatherService.getForecasatByCoordinates(latitude, longitude)
 
     const allDaysSets = generateDaysSets(rawData)
