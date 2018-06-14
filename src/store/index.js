@@ -10,10 +10,12 @@ import { connectRouter, routerMiddleware } from 'connected-react-router'
 import thunk from 'redux-thunk'
 import history from '../history'
 import apiReducer from './api/reducer'
+import appReducer from './app/reducer'
 import licensesReducer from './licenses/reducer'
 
 const rootReducer = combineReducers({
   api: apiReducer,
+  app: appReducer,
   licenses: licensesReducer,
 })
 

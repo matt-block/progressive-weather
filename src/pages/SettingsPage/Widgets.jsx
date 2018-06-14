@@ -109,3 +109,11 @@ SettingsGroup.propTypes = {
   title: PropTypes.string.isRequired,
   children: PropTypes.arrayOf(PropTypes.element).isRequired,
 }
+
+export function UpdateRow() {
+  return (
+    <div className='settings__update-button-wrapper'>
+      <button onClick={() => window.location.reload()}>Update now</button>
+    </div>
+  )
+}
