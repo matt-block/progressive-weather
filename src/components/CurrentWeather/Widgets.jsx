@@ -33,7 +33,7 @@ export function WeatherWidget(data) {
         <div className='current-weather-widget__main-icon'>
           <WeatherIcon id={data.icon} />
         </div>
-        <p className='current-weather-widget__main'>{data.temp}°</p>
+        <p className='current-weather-widget__main'>{data.temp.toFixed(0)}°</p>
         <div className='current-weather-widget__main-relatives'>
           <span>{data.tempMax.toFixed(0)}°</span>
           <span>{data.tempMin.toFixed(0)}°</span>
