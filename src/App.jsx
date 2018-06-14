@@ -16,8 +16,11 @@ import Toolbar from './components/Toolbar'
 import MainPage from './pages/MainPage'
 import SettingsPage from './pages/SettingsPage'
 import LicensesPage from './pages/LicensesPage'
+import { loadSettings } from './store/app/actions'
 
 function App() {
+  store.dispatch(loadSettings())
+
   return (
     <Provider store={store}>
       <React.Fragment>

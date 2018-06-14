@@ -20,11 +20,16 @@ export const setUnit = unit => ({
   unit,
 })
 
-export const changeUnit = unit => async (dispatch) => {
+export const changeUnit = unit => (dispatch) => {
   window.localStorage.setItem('unit', unit)
   dispatch(setUnit(unit))
   navigator.geolocation.getCurrentPosition((position) => {
     dispatch(fetchCurrentDataFor(position.coords.latitude, position.coords.longitude))
     dispatch(fetchForecastDataFor(position.coords.latitude, position.coords.longitude))
   })
+}
+
+export const loadSettings = () => (dispatch) => {
+  const unit = window.localStorage.getItem('unit')
+  if (unit) { dispatch(setUnit(unit)) }
 }
