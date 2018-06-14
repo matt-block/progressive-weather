@@ -74,29 +74,27 @@ function getMostFrequentIcon(day) {
 export const fetchCurrentDataFor = (latitude, longitude) => async (dispatch) => {
   dispatch(startApiFetching())
 
-  const weatherService = new OpenWeatherMap(API_KEY, 'metric')
-  let rawData
-
   try {
-    rawData = await weatherService.getCurrentByCoordinates(latitude, longitude)
+    const weatherService = new OpenWeatherMap(API_KEY, 'metric')
+    const rawData = await weatherService.getCurrentByCoordinates(latitude, longitude)
+
+    const currentData = {
+      locationName: rawData.name,
+      temperature: rawData.main.temp,
+      temperatureMin: rawData.main.temp_min,
+      temperatureMax: rawData.main.temp_max,
+      humidity: rawData.main.humidity,
+      sunrise: moment.unix(rawData.sys.sunrise),
+      sunset: moment.unix(rawData.sys.sunset),
+      description: rawData.weather[0].main,
+      icon: rawData.weather[0].icon,
+      wind: rawData.wind.speed,
+    }
+
+    dispatch(addApiData(currentData))
   } catch (error) {
     dispatch(addApiError(error.message))
-    dispatch(stopApiFetching())
-    return
   }
-
-  const currentData = {}
-  currentData.locationName = rawData.name
-  currentData.temperature = rawData.main.temp
-  currentData.temperatureMin = rawData.main.temp_min
-  currentData.temperatureMax = rawData.main.temp_max
-  currentData.humidity = rawData.main.humidity
-  currentData.sunrise = moment.unix(rawData.sys.sunrise)
-  currentData.sunset = moment.unix(rawData.sys.sunset)
-  currentData.description = rawData.weather[0].main
-  currentData.icon = rawData.weather[0].icon
-  currentData.wind = rawData.wind.speed
-  dispatch(addApiData(currentData))
 
   dispatch(stopApiFetching())
 }
@@ -131,26 +129,22 @@ function generateDaysSets(rawData) {
 export const fetchForecastDataFor = (latitude, longitude) => async (dispatch) => {
   dispatch(startApiFetching())
 
-  const weatherService = new OpenWeatherMap(API_KEY, 'metric')
-  let rawData
-
   try {
-    rawData = await weatherService.getForecasatByCoordinates(latitude, longitude)
+    const weatherService = new OpenWeatherMap(API_KEY, 'metric')
+    const rawData = await weatherService.getForecasatByCoordinates(latitude, longitude)
+
+    const allDaysSets = generateDaysSets(rawData)
+    const forecastData = allDaysSets.map(day => ({
+      min: day.sets.reduce((min, current) => (current.main.temp_min <= min ? current.main.temp_min : min), 9999),
+      max: day.sets.reduce((max, current) => (current.main.temp_max >= max ? current.main.temp_max : max), -9999),
+      icon: getMostFrequentIcon(day.sets),
+      day: day.weekDayAsNumber,
+    }))
+
+    dispatch(addApiForecast(forecastData))
   } catch (error) {
     dispatch(addApiError(error.message))
-    dispatch(stopApiFetching())
-    return
   }
 
-  const allDaysSets = generateDaysSets(rawData)
-
-  const forecastData = allDaysSets.map(day => ({
-    min: day.sets.reduce((min, current) => (current.main.temp_min <= min ? current.main.temp_min : min), 9999),
-    max: day.sets.reduce((max, current) => (current.main.temp_max >= max ? current.main.temp_max : max), -9999),
-    icon: getMostFrequentIcon(day.sets),
-    day: day.weekDayAsNumber,
-  }))
-
-  dispatch(addApiForecast(forecastData))
   dispatch(stopApiFetching())
 }
