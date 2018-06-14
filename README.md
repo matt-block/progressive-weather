@@ -18,6 +18,6 @@ Copyright (c) 2018 Matei Bogdan Radu.
 [Netlify]: https://www.netlify.com
 [CircleCI_url]: https://circleci.com/gh/matt-block/progressive-weather/tree/master
 [CircleCI_badge]: https://circleci.com/gh/matt-block/progressive-weather/tree/master.svg?style=shield
-[Codebeat_url]: https://codebeat.co/a/matei-radu/projects/github-com-matt-block-progressive-weather-master
-[Codebeat_badge]: https://codebeat.co/badges/c581d9c6-64ce-4fc3-83fd-d8fb1a941e76
+[Codebeat_url]: https://codebeat.co/projects/github-com-matt-block-progressive-weather-master
+[Codebeat_badge]: https://codebeat.co/badges/94decd96-5835-4922-88f9-5be14b93d49f
 [LICENSE]: https://github.com/matt-block/progressive-weather/blob/master/LICENSE
