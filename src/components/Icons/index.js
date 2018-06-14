@@ -12,6 +12,7 @@ import SunsetIcon from './SunsetIcon'
 import SettingsIcon from './SettingsIcon'
 import ExternalIcon from './ExternalIcon'
 import BackIcon from './BackIcon'
+import OfflineIcon from './OfflineIcon'
 import NotificationDot from './NotificationDot'
 
 export {
@@ -22,5 +23,6 @@ export {
   SettingsIcon,
   ExternalIcon,
   BackIcon,
+  OfflineIcon,
   NotificationDot,
 }

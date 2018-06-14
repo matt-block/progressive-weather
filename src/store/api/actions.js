@@ -35,6 +35,15 @@ export const stopApiFetching = () => ({
   type: 'API_STOP_FETCHING',
 })
 
+export const addApiError = error => ({
+  type: 'API_ADD_ERROR',
+  error,
+})
+
+export const removeApiError = () => ({
+  type: 'API_REMOVE_ERROR',
+})
+
 /**
  * Gets the most frequent weather icon for a forecasted day.
  *
@@ -65,66 +74,77 @@ function getMostFrequentIcon(day) {
 export const fetchCurrentDataFor = (latitude, longitude) => async (dispatch) => {
   dispatch(startApiFetching())
 
-  const weatherService = new OpenWeatherMap(API_KEY, 'metric')
-  const rawData = await weatherService.getCurrentByCoordinates(latitude, longitude)
+  try {
+    const weatherService = new OpenWeatherMap(API_KEY, 'metric')
+    const rawData = await weatherService.getCurrentByCoordinates(latitude, longitude)
 
-  const currentData = {}
-  currentData.locationName = rawData.name
-  currentData.temperature = rawData.main.temp
-  currentData.temperatureMin = rawData.main.temp_min
-  currentData.temperatureMax = rawData.main.temp_max
-  currentData.humidity = rawData.main.humidity
-  currentData.sunrise = moment.unix(rawData.sys.sunrise)
-  currentData.sunset = moment.unix(rawData.sys.sunset)
-  currentData.description = rawData.weather[0].main
-  currentData.icon = rawData.weather[0].icon
-  currentData.wind = rawData.wind.speed
-  dispatch(addApiData(currentData))
+    const currentData = {
+      locationName: rawData.name,
+      temperature: rawData.main.temp,
+      temperatureMin: rawData.main.temp_min,
+      temperatureMax: rawData.main.temp_max,
+      humidity: rawData.main.humidity,
+      sunrise: moment.unix(rawData.sys.sunrise),
+      sunset: moment.unix(rawData.sys.sunset),
+      description: rawData.weather[0].main,
+      icon: rawData.weather[0].icon,
+      wind: rawData.wind.speed,
+    }
+
+    dispatch(addApiData(currentData))
+  } catch (error) {
+    dispatch(addApiError(error.message))
+  }
 
   dispatch(stopApiFetching())
+}
+
+/**
+ * Filters and groups raw forecast data into days.
+ */
+function generateDaysSets(rawData) {
+  const daysSets = []
+
+  for (let i = 0; i < 3; i += 1) {
+    daysSets[i] = {}
+    daysSets[i].sets = []
+  }
+
+  const today = moment().startOf('day')
+  rawData.list.map((set) => {
+    const setDate = moment.unix(set.dt).startOf('day')
+    const differenceInDays = setDate.diff(today, 'days')
+
+    if (differenceInDays >= 1 && differenceInDays <= 3) {
+      daysSets[differenceInDays - 1].sets.push(set)
+      daysSets[differenceInDays - 1].weekDayAsNumber = setDate.isoWeekday()
+    }
+
+    return set
+  })
+
+  return daysSets
 }
 
 export const fetchForecastDataFor = (latitude, longitude) => async (dispatch) => {
   dispatch(startApiFetching())
 
-  const weatherService = new OpenWeatherMap(API_KEY, 'metric')
-  const rawData = await weatherService.getForecasatByCoordinates(latitude, longitude)
+  try {
+    const weatherService = new OpenWeatherMap(API_KEY, 'metric')
+    const rawData = await weatherService.getForecasatByCoordinates(latitude, longitude)
 
-  const daysSets = []
-  daysSets[0] = []
-  daysSets[1] = []
-  daysSets[2] = []
+    const allDaysSets = generateDaysSets(rawData)
+    const forecastData = allDaysSets.map(day => ({
+      min: day.sets.reduce((min, current) => (current.main.temp_min <= min ? current.main.temp_min : min), 9999),
+      max: day.sets.reduce((max, current) => (current.main.temp_max >= max ? current.main.temp_max : max), -9999),
+      icon: getMostFrequentIcon(day.sets),
+      day: day.weekDayAsNumber,
+    }))
 
-  const weekDayNumbers = []
+    dispatch(addApiForecast(forecastData))
+  } catch (error) {
+    dispatch(addApiError(error.message))
+  }
 
-  const today = moment().startOf('day')
-  rawData.list.map((set) => {
-    const setDate = moment.unix(set.dt).startOf('day')
-    switch (setDate.diff(today, 'days')) {
-      case 1:
-        daysSets[0].push(set)
-        weekDayNumbers[0] = setDate.isoWeekday()
-        return set
-      case 2:
-        daysSets[1].push(set)
-        weekDayNumbers[1] = setDate.isoWeekday()
-        return set
-      case 3:
-        daysSets[2].push(set)
-        weekDayNumbers[2] = setDate.isoWeekday()
-        return set
-      default:
-        return set
-    }
-  })
-
-  const forecastData = daysSets.map((day, index) => ({
-    min: day.reduce((min, current) => (current.main.temp_min <= min ? current.main.temp_min : min), 9999),
-    max: day.reduce((max, current) => (current.main.temp_max >= max ? current.main.temp_max : max), -9999),
-    icon: getMostFrequentIcon(day),
-    day: weekDayNumbers[index],
-  }))
-
-  dispatch(addApiForecast(forecastData))
   dispatch(stopApiFetching())
 }

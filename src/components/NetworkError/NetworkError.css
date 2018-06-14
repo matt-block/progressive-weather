@@ -1,0 +1,26 @@
+/*
+ * Progressive Weather
+ * Copyright © 2018 Matei Bogdan Radu <matei.radu.92@gmail.com>
+ * Licensed under MIT
+ * (https://github.com/matt-block/progressive-weather/blob/master/LICENSE)
+ */
+
+.network-error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30vh;
+  padding: 0 36px;
+  text-align: center;
+}
+
+.network-error__icon-wrapper {
+  width: 96px;
+}
+
+@media(min-width: 768px) {
+  .network-error__icon-wrapper {
+    width: 160px;
+  }
+}
