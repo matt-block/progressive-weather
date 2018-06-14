@@ -11,6 +11,27 @@ import PropTypes from 'prop-types'
 import './Widgets.css'
 import { ExternalIcon } from '../../components/Icons'
 
+export function Select({ value, onChange }) {
+  return (
+    <div className='settings__select-wrapper'>
+      <select
+        value={value}
+        onChange={onChange}
+        className='settings__select'
+      >
+        <option value='metric'>Celsius</option>
+        <option value='imperial'>Fahrenheit</option>
+      </select>
+      <div className='settings__select-arrow'>▼</div>
+    </div>
+  )
+}
+
+Select.propTypes = {
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+}
+
 export function SettingsRow({ title, subtitle, children }) {
   const subtitleText = subtitle ? <span className='settings__row-subtitle'>{subtitle}</span> : null
 

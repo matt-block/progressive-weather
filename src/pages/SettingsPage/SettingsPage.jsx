@@ -9,7 +9,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Container from '../../components/PageUtils'
-import { SettingsRow, SettingsGroup, SettingsRowLink, SettingsRowInternalLink, UpdateRow } from './Widgets'
+import { SettingsRow, SettingsGroup, SettingsRowLink, SettingsRowInternalLink, UpdateRow, Select } from './Widgets'
 import { APP_REPO_LINK, APP_VERSION } from '../../config'
 import { changeUnit } from '../../store/app/actions'
 
@@ -17,16 +17,11 @@ function SettingsPage({ notificationEnabled, unit, changeTempUnit }) {
   return (
     <Container>
       <SettingsGroup title='General'>
-        <SettingsRow
-          title='Temperature'
-        >
-          <select
+        <SettingsRow title='Temperature'>
+          <Select
             value={unit}
             onChange={changeTempUnit}
-          >
-            <option value='metric'>Celsius</option>
-            <option value='imperial'>Fahrenheit</option>
-          </select>
+          />
         </SettingsRow>
       </SettingsGroup>
       <SettingsGroup title='About'>
