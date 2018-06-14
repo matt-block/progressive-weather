@@ -26,8 +26,8 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run:
-          name: Run Tests
-          command: yarn test
+          name: Run Tests with coverage
+          command: yarn test --coverage
 
       - run:
           name: Create Production Build
@@ -42,3 +42,7 @@ jobs:
               ./netlifyctl version
               ./netlifyctl deploy -y -s $NETLIFY_SITE_ID -A $NETLIFY_TOKEN -P ./build/
             fi
+
+      - run:
+          name: Upload coverage report to Codecov
+          command: codecov
