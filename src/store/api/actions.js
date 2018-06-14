@@ -101,6 +101,33 @@ export const fetchCurrentDataFor = (latitude, longitude) => async (dispatch) => 
   dispatch(stopApiFetching())
 }
 
+/**
+ * Filters and groups raw forecast data into days.
+ */
+function generateDaysSets(rawData) {
+  const daysSets = []
+
+  for (let i = 0; i < 3; i += 1) {
+    daysSets[i] = {}
+    daysSets[i].sets = []
+  }
+
+  const today = moment().startOf('day')
+  rawData.list.map((set) => {
+    const setDate = moment.unix(set.dt).startOf('day')
+    const differenceInDays = setDate.diff(today, 'days')
+
+    if (differenceInDays >= 1 && differenceInDays <= 3) {
+      daysSets[differenceInDays - 1].sets.push(set)
+      daysSets[differenceInDays - 1].weekDayAsNumber = setDate.isoWeekday()
+    }
+
+    return set
+  })
+
+  return daysSets
+}
+
 export const fetchForecastDataFor = (latitude, longitude) => async (dispatch) => {
   dispatch(startApiFetching())
 
@@ -115,39 +142,13 @@ export const fetchForecastDataFor = (latitude, longitude) => async (dispatch) =>
     return
   }
 
-  const daysSets = []
-  daysSets[0] = []
-  daysSets[1] = []
-  daysSets[2] = []
+  const allDaysSets = generateDaysSets(rawData)
 
-  const weekDayNumbers = []
-
-  const today = moment().startOf('day')
-  rawData.list.map((set) => {
-    const setDate = moment.unix(set.dt).startOf('day')
-    switch (setDate.diff(today, 'days')) {
-      case 1:
-        daysSets[0].push(set)
-        weekDayNumbers[0] = setDate.isoWeekday()
-        return set
-      case 2:
-        daysSets[1].push(set)
-        weekDayNumbers[1] = setDate.isoWeekday()
-        return set
-      case 3:
-        daysSets[2].push(set)
-        weekDayNumbers[2] = setDate.isoWeekday()
-        return set
-      default:
-        return set
-    }
-  })
-
-  const forecastData = daysSets.map((day, index) => ({
-    min: day.reduce((min, current) => (current.main.temp_min <= min ? current.main.temp_min : min), 9999),
-    max: day.reduce((max, current) => (current.main.temp_max >= max ? current.main.temp_max : max), -9999),
-    icon: getMostFrequentIcon(day),
-    day: weekDayNumbers[index],
+  const forecastData = allDaysSets.map(day => ({
+    min: day.sets.reduce((min, current) => (current.main.temp_min <= min ? current.main.temp_min : min), 9999),
+    max: day.sets.reduce((max, current) => (current.main.temp_max >= max ? current.main.temp_max : max), -9999),
+    icon: getMostFrequentIcon(day.sets),
+    day: day.weekDayAsNumber,
   }))
 
   dispatch(addApiForecast(forecastData))
