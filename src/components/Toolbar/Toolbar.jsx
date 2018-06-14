@@ -25,7 +25,7 @@ function Toolbar(props) {
 
   const settingsIcon = (
     <button onClick={props.goToSettings}>
-      <NotificationDot>
+      <NotificationDot isActive={props.notificationEnabled}>
         <SettingsIcon />
       </NotificationDot>
     </button>
@@ -63,6 +63,7 @@ Toolbar.propTypes = {
     icon: PropTypes.string,
     wind: PropTypes.number,
   }),
+  notificationEnabled: PropTypes.bool,
   currentPath: PropTypes.string.isRequired,
   goBack: PropTypes.func.isRequired,
   goToSettings: PropTypes.func.isRequired,
@@ -70,11 +71,13 @@ Toolbar.propTypes = {
 
 Toolbar.defaultProps = {
   currentData: undefined,
+  notificationEnabled: false,
 }
 
 const mapStateToProps = state => ({
   currentData: state.api.currentData,
   currentPath: state.router.location.pathname,
+  notificationEnabled: state.app.notification,
 })
 
 const mapDispatchToProps = dispatch => ({
