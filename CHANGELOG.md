@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] - 2018-06-14
+### Added
+- Notifies the user when a new version is available.
+- Users can manually update via _Settings > Version > Update now_).
+
 ## [1.2.1] - 2018-06-14
 ### Fixed
 - The current temperature is now always displayed without decimals.
@@ -37,6 +42,7 @@ correctly the row title if no subtitle is provided.
   - Display forecast for the next three days (min, max and condition icon)
   - Settings page with _about_ section
 
+[1.3.0]: https://github.com/matt-block/progressive-weather/compare/v1.2.1...v1.3.0
 [1.2.1]: https://github.com/matt-block/progressive-weather/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/matt-block/progressive-weather/compare/v1.1.1...v1.2.0
 [1.1.1]: https://github.com/matt-block/progressive-weather/compare/v1.1.0...v1.1.1
