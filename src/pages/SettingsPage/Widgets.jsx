@@ -107,7 +107,10 @@ export function SettingsGroup({ title, children }) {
 
 SettingsGroup.propTypes = {
   title: PropTypes.string.isRequired,
-  children: PropTypes.arrayOf(PropTypes.element).isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.element),
+    PropTypes.element,
+  ]).isRequired,
 }
 
 export function UpdateRow() {
