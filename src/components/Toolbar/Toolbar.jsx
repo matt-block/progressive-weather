@@ -15,8 +15,6 @@ import { ToolbarShell, ToolbarTitle, ToolbarNavigation, ToolbarSettings } from '
 import { NotificationDot, SettingsIcon, BackIcon } from '../Icons'
 
 function Toolbar(props) {
-  if (!props.currentData) { return null }
-
   const backIcon = (
     <button onClick={props.goBack}>
       <BackIcon />
@@ -31,7 +29,7 @@ function Toolbar(props) {
     </button>
   )
 
-  let title = props.currentData.locationName
+  let title = props.currentData ? props.currentData.locationName : ''
   if (props.currentPath === '/settings') { title = 'Settings' }
   if (props.currentPath === '/licenses') { title = 'Licenses' }
 
