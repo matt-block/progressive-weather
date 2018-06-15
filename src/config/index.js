@@ -19,7 +19,7 @@ export const API_KEY = process.env.REACT_APP_OPENWEATHERMAP_KEY
  *
  * @see {@link https://semver.org/}
  */
-export const APP_VERSION = '1.3.1'
+export const APP_VERSION = '1.4.0'
 
 /**
  * URL of the application repository.
