@@ -14,7 +14,7 @@ import Container from '../PageUtils'
 import { ToolbarShell, ToolbarTitle, ToolbarNavigation, ToolbarSettings } from './Widgets'
 import { NotificationDot, SettingsIcon, BackIcon } from '../Icons'
 
-function Toolbar(props) {
+export function Toolbar(props) {
   const backIcon = (
     <button onClick={props.goBack}>
       <BackIcon />
