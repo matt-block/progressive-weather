@@ -7,6 +7,7 @@
 
 const initialState = {
   notification: false,
+  unit: 'metric',
 }
 
 const appReducer = (state = initialState, action) => {
@@ -15,6 +16,8 @@ const appReducer = (state = initialState, action) => {
       return { ...state, notification: true }
     case 'APP_NOTIFICATION_OFF':
       return { ...state, notification: false }
+    case 'APP_SET_UNIT':
+      return { ...state, unit: action.unit }
     default:
       return state
   }

@@ -18,7 +18,7 @@
   display: inline-block;
   margin: 8px 0;
   padding: 0 16px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: bold;
 }
 
@@ -85,4 +85,36 @@
   background: none;
   border: 1px solid #eee;
   border-radius: 4px;
+}
+
+.settings__select-wrapper {
+  position: relative;
+}
+
+.settings__select {
+  height: 32px;
+  padding: 0 32px 0 16px;
+  color: #eee;
+  background-color: transparent;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  appearance: none;
+  cursor: pointer;
+}
+
+.settings__select > option {
+  color: black;
+}
+
+.settings__select-arrow {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #eee;
+  height: 32px;
+  width: 32px;
+  pointer-events: none;
 }
