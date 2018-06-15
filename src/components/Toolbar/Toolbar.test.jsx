@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Enzyme, { mount } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
-import { Toolbar } from './Toolbar'
+import { ToolbarBase } from './Toolbar'
 
 Enzyme.configure({ adapter: new Adapter() })
 
@@ -14,7 +14,7 @@ describe('NetworkError', () => {
       goBack: () => undefined,
     }
     const div = document.createElement('div')
-    ReactDOM.render(<Toolbar {...props} />, div)
+    ReactDOM.render(<ToolbarBase {...props} />, div)
     ReactDOM.unmountComponentAtNode(div)
   })
 
@@ -27,7 +27,7 @@ describe('NetworkError', () => {
       goToSettings: () => undefined,
       goBack: () => undefined,
     }
-    const toolbar = mount(<Toolbar {...props} />)
+    const toolbar = mount(<ToolbarBase {...props} />)
 
     const title = toolbar.find('.header-shell__title').text()
     const settingsButton = toolbar.find('.icon-settings').length
@@ -49,7 +49,7 @@ describe('NetworkError', () => {
       goToSettings: () => undefined,
       goBack: () => undefined,
     }
-    const toolbar = mount(<Toolbar {...props} />)
+    const toolbar = mount(<ToolbarBase {...props} />)
 
     const title = toolbar.find('.header-shell__title').text()
     const settingsButton = toolbar.find('.icon-settings').length

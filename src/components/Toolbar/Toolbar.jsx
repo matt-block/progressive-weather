@@ -14,7 +14,7 @@ import Container from '../PageUtils'
 import { ToolbarShell, ToolbarTitle, ToolbarNavigation, ToolbarSettings } from './Widgets'
 import { NotificationDot, SettingsIcon, BackIcon } from '../Icons'
 
-export function Toolbar(props) {
+export function ToolbarBase(props) {
   const backIcon = (
     <button onClick={props.goBack}>
       <BackIcon />
@@ -48,7 +48,7 @@ export function Toolbar(props) {
   )
 }
 
-Toolbar.propTypes = {
+ToolbarBase.propTypes = {
   currentData: PropTypes.shape({
     locationName: PropTypes.string,
     temperature: PropTypes.number,
@@ -67,7 +67,7 @@ Toolbar.propTypes = {
   goToSettings: PropTypes.func.isRequired,
 }
 
-Toolbar.defaultProps = {
+ToolbarBase.defaultProps = {
   currentData: undefined,
   notificationEnabled: false,
 }
@@ -87,4 +87,4 @@ const mapDispatchToProps = dispatch => ({
   },
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Toolbar)
+export default connect(mapStateToProps, mapDispatchToProps)(ToolbarBase)
