@@ -6,7 +6,7 @@ import { ToolbarBase } from './Toolbar'
 
 Enzyme.configure({ adapter: new Adapter() })
 
-describe('NetworkError', () => {
+describe('Toolbar', () => {
   test('renders without crashing', () => {
     const props = {
       currentPath: '/',
