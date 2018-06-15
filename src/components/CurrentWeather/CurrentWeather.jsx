@@ -12,7 +12,7 @@ import moment from 'moment'
 import Container from '../PageUtils'
 import { WeatherWidget, LoadingWidget, StylingWrapper, SecondaryWidget } from './Widgets'
 
-function CurrentWeather({ currentData, isFetching }) {
+export function CurrentWeatherBase({ currentData, isFetching }) {
   if (!currentData || isFetching) {
     return (
       <StylingWrapper>
@@ -44,7 +44,7 @@ function CurrentWeather({ currentData, isFetching }) {
   )
 }
 
-CurrentWeather.propTypes = {
+CurrentWeatherBase.propTypes = {
   currentData: PropTypes.shape({
     locationName: PropTypes.string,
     temperature: PropTypes.number,
@@ -60,7 +60,7 @@ CurrentWeather.propTypes = {
   isFetching: PropTypes.bool.isRequired,
 }
 
-CurrentWeather.defaultProps = {
+CurrentWeatherBase.defaultProps = {
   currentData: undefined,
 }
 
@@ -69,4 +69,4 @@ const mapStateToProps = state => ({
   isFetching: state.api.isFetching,
 })
 
-export default connect(mapStateToProps)(CurrentWeather)
+export default connect(mapStateToProps)(CurrentWeatherBase)
