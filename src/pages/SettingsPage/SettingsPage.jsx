@@ -10,7 +10,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Container from '../../components/PageUtils'
 import { SettingsRow, SettingsGroup, SettingsRowLink, SettingsRowInternalLink, UpdateRow, Select } from './Widgets'
-import { APP_REPO_LINK, APP_VERSION } from '../../config'
+import { APP_REPO_LINK, APP_VERSION, API_URL } from '../../config'
 import { changeUnit } from '../../store/app/actions'
 
 function SettingsPage({ notificationEnabled, unit, changeTempUnit }) {
@@ -39,6 +39,11 @@ function SettingsPage({ notificationEnabled, unit, changeTempUnit }) {
         <SettingsRowInternalLink
           title='Third-party licenses'
           url='/licenses'
+        />
+        <SettingsRowLink
+          title='Data provider'
+          subtitle='OpenWeatherMap'
+          url={API_URL}
         />
       </SettingsGroup>
     </Container>
