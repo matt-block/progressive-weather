@@ -1,5 +1,5 @@
 # Progressive Weather
-[![CircleCI][CircleCI_badge]][CircleCI_url] [![Codebeat][Codebeat_badge]][Codebeat_url]
+[![CircleCI][CircleCI_badge]][CircleCI_url]
 
 A [Progressive Web App][PWA] for local weather forecast.
 
@@ -18,6 +18,4 @@ Copyright (c) 2018 Matei Bogdan Radu.
 [Netlify]: https://www.netlify.com
 [CircleCI_url]: https://circleci.com/gh/matt-block/progressive-weather/tree/master
 [CircleCI_badge]: https://circleci.com/gh/matt-block/progressive-weather/tree/master.svg?style=shield
-[Codebeat_url]: https://codebeat.co/projects/github-com-matt-block-progressive-weather-master
-[Codebeat_badge]: https://codebeat.co/badges/94decd96-5835-4922-88f9-5be14b93d49f
 [LICENSE]: https://github.com/matt-block/progressive-weather/blob/master/LICENSE
