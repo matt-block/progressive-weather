@@ -12,7 +12,7 @@ import nanoid from 'nanoid'
 import Container from '../PageUtils'
 import { ForecastList, ForecastDay } from './Widgets'
 
-function Forecast({ forecastData, isFetching }) {
+export function ForecastBase({ forecastData, isFetching }) {
   if (forecastData && !isFetching) {
     const days = forecastData.map(day => <ForecastDay key={nanoid()} {...day} />)
 
@@ -28,7 +28,7 @@ function Forecast({ forecastData, isFetching }) {
   return <div />
 }
 
-Forecast.propTypes = {
+ForecastBase.propTypes = {
   forecastData: PropTypes.arrayOf(PropTypes.shape({
     day: PropTypes.number,
     icon: PropTypes.string,
@@ -38,7 +38,7 @@ Forecast.propTypes = {
   isFetching: PropTypes.bool.isRequired,
 }
 
-Forecast.defaultProps = {
+ForecastBase.defaultProps = {
   forecastData: undefined,
 }
 
@@ -47,4 +47,4 @@ const mapStateToProps = state => ({
   isFetching: state.api.isFetching,
 })
 
-export default connect(mapStateToProps)(Forecast)
+export default connect(mapStateToProps)(ForecastBase)
