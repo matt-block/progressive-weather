@@ -17,7 +17,7 @@ import './LicensesPage.css'
 /**
  * Page responsable for displaying all third-party software licenses.
  */
-class LicensesPage extends Component {
+export class LicensesPageBase extends Component {
   componentWillUnmount() {
     this.props.removeLicense()
   }
@@ -46,13 +46,13 @@ class LicensesPage extends Component {
   }
 }
 
-LicensesPage.propTypes = {
+LicensesPageBase.propTypes = {
   license: PropTypes.string,
   fetchLicense: PropTypes.func.isRequired,
   removeLicense: PropTypes.func.isRequired,
 }
 
-LicensesPage.defaultProps = {
+LicensesPageBase.defaultProps = {
   license: undefined,
 }
 
@@ -69,4 +69,4 @@ const mapDispatchToProps = dispatch => ({
   },
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(LicensesPage)
+export default connect(mapStateToProps, mapDispatchToProps)(LicensesPageBase)
