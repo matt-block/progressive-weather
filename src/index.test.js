@@ -1,16 +1,20 @@
 import puppeteer from 'puppeteer'
+import ip from 'ip'
 
 describe('Progressive Weather', () => {
   let browser
   let page
+  const LOCAL_ADDR = ip.address()
 
   beforeAll(async () => {
-    browser = await puppeteer.launch()
+    browser = await puppeteer.launch({
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    })
     page = await browser.newPage()
   })
 
   test('displays a spinner while loading', async () => {
-    await page.goto('http://localhost:5000/')
+    await page.goto(`http://${LOCAL_ADDR}:5000/`)
 
     // At cold start the spinner should be present.
     let spinner = await page.$eval('.spinner', () => true)
@@ -30,7 +34,7 @@ describe('Progressive Weather', () => {
   }, 10000)
 
   test('can navigate to Settings page', async () => {
-    await page.goto('http://localhost:5000/')
+    await page.goto(`http://${LOCAL_ADDR}:5000/`)
 
     const navigationPromise = page.waitForNavigation()
     // Back button should not be rendered,
@@ -54,9 +58,9 @@ describe('Progressive Weather', () => {
   }, 3000)
 
   test('redirects to the Main page when navigating to an unused route', async () => {
-    await page.goto('http://localhost:5000/most-likely-unused-route')
+    await page.goto(`http://${LOCAL_ADDR}:5000/most-likely-unused-route`)
 
-    expect(page.url()).toBe('http://localhost:5000/')
+    expect(page.url()).toBe(`http://${LOCAL_ADDR}:5000/`)
   }, 3000)
 
   afterAll(() => {

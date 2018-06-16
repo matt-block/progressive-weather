@@ -1,0 +1,4 @@
+{
+  "testMatch": ["<rootDir>/src/index.test.js"],
+  "testEnvironment": "node"
+}
