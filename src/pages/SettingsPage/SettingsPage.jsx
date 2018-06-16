@@ -13,7 +13,7 @@ import { SettingsRow, SettingsGroup, SettingsRowLink, SettingsRowInternalLink, U
 import { APP_REPO_LINK, APP_VERSION, API_URL } from '../../config'
 import { changeUnit } from '../../store/app/actions'
 
-function SettingsPage({ notificationEnabled, unit, changeTempUnit }) {
+export function SettingsPageBase({ notificationEnabled, unit, changeTempUnit }) {
   return (
     <Container>
       <SettingsGroup title='General'>
@@ -50,13 +50,13 @@ function SettingsPage({ notificationEnabled, unit, changeTempUnit }) {
   )
 }
 
-SettingsPage.propTypes = {
+SettingsPageBase.propTypes = {
   notificationEnabled: PropTypes.bool,
   unit: PropTypes.string.isRequired,
   changeTempUnit: PropTypes.func.isRequired,
 }
 
-SettingsPage.defaultProps = {
+SettingsPageBase.defaultProps = {
   notificationEnabled: false,
 }
 
@@ -71,4 +71,4 @@ const mapDispatchToProps = dispatch => ({
   },
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(SettingsPage)
+export default connect(mapStateToProps, mapDispatchToProps)(SettingsPageBase)
