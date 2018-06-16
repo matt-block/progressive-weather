@@ -1,11 +1,10 @@
 version: 2
 jobs:
-  build:
-
+  unit:
     docker:
       - image: circleci/node:8.11.2
 
-    working_directory: ~/repo
+    working_directory: ~/unit
 
     steps:
       - checkout
@@ -17,7 +16,7 @@ jobs:
           - v1-dependencies-
 
       - run:
-          name: Install Dependencies
+          name: Installing dependencies
           command: yarn install
 
       - save_cache:
@@ -26,23 +25,110 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run:
-          name: Run Tests with coverage
+          name: Running tests with coverage
           command: yarn test --coverage
 
       - run:
-          name: Create Production Build
+          name: Uploading coverage report to Codecov
+          command: ./node_modules/codecov/bin/codecov
+
+  e2e:
+    docker:
+      - image: circleci/node:8.11.2
+
+    working_directory: ~/e2e
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run:
+          name: Installing dependencies
+          command: yarn install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      - run:
+          name: Installing missing Puppeteer dependencies
+          command: |
+            sudo apt-get update &&
+            sudo apt-get install -yq gconf-service libasound2 libatk1.0-0 libc6 \
+            libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgcc1 \
+            libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 \
+            libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 \
+            libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 \
+            libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates xsel \
+            fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils wget
+
+      - run:
+          name: Creating E2E build
+          command: REACT_APP_E2E_TEST=true yarn build
+
+      - run:
+          name: Start local instance
+          command: yarn run serve -s build
+          background: true
+
+      - run:
+          name: Waiting for local instance to be available
+          command: sleep 10
+
+      - run:
+          name: Running End-to-End tests
+          command: yarn test:e2e
+
+  deploy:
+    docker:
+      - image: circleci/node:8.11.2
+
+    working_directory: ~/deploy
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run:
+          name: Installing dependencies
+          command: yarn install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      - run:
+          name: Creating production build
           command: yarn build
 
       - run:
-          name: Deploy on Netlify
+          name: Deploying on Netlify
           command: |
-            if [ $CIRCLE_BRANCH = 'master' ]; then
-              wget https://github.com/netlify/netlifyctl/releases/download/v0.4.0/netlifyctl-linux-amd64-0.4.0.tar.gz
-              tar -xzvf netlifyctl-linux-amd64-0.4.0.tar.gz
-              ./netlifyctl version
-              ./netlifyctl deploy -y -s $NETLIFY_SITE_ID -A $NETLIFY_TOKEN -P ./build/
-            fi
+            wget https://github.com/netlify/netlifyctl/releases/download/v0.4.0/netlifyctl-linux-amd64-0.4.0.tar.gz
+            tar -xzvf netlifyctl-linux-amd64-0.4.0.tar.gz
+            ./netlifyctl deploy -y -s $NETLIFY_SITE_ID -A $NETLIFY_TOKEN -P ./build/
 
-      - run:
-          name: Upload coverage report to Codecov
-          command: ./node_modules/codecov/bin/codecov
+workflows:
+  version: 2
+  test_and_deploy:
+    jobs:
+      - unit
+      - e2e
+      - deploy:
+          requires:
+            - unit
+            - e2e
+          filters:
+            branches:
+              only: master

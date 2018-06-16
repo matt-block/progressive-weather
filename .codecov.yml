@@ -10,4 +10,6 @@ coverage:
         threshold: 2
         base: auto
 
+    patch: off
+
 comment: off
