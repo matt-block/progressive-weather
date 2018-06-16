@@ -17,7 +17,7 @@ import NetworkError from '../../components/NetworkError'
  *
  * This component will also be the fallback page for incorrect URLs.
  */
-function MainPage({ error }) {
+export function MainPageBase({ error }) {
   if (error) { return <NetworkError error={error} /> }
 
   return (
@@ -28,16 +28,16 @@ function MainPage({ error }) {
   )
 }
 
-MainPage.propTypes = {
+MainPageBase.propTypes = {
   error: PropTypes.string,
 }
 
-MainPage.defaultProps = {
-  error: '',
+MainPageBase.defaultProps = {
+  error: undefined,
 }
 
 const mapStateToProps = state => ({
   error: state.api.error,
 })
 
-export default connect(mapStateToProps)(MainPage)
+export default connect(mapStateToProps)(MainPageBase)
