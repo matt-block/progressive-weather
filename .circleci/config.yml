@@ -17,7 +17,7 @@ jobs:
           - v1-dependencies-
 
       - run:
-          name: Install Dependencies
+          name: Installing dependencies
           command: yarn install
 
       - save_cache:
@@ -26,15 +26,27 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run:
-          name: Run Tests with coverage
+          name: Creating E2E build
+          command: REACT_APP_E2E_TEST=true yarn build
+      
+      - run:
+          name: Starting local instance
+          command: yarn run serve -s build &
+
+      - run:
+          name: Running tests with coverage
           command: yarn test --coverage
 
       - run:
-          name: Create Production Build
+          name: Stopping local instance
+          command: pkill serve
+
+      - run:
+          name: Creating production build
           command: yarn build
 
       - run:
-          name: Deploy on Netlify
+          name: Deploying on Netlify
           command: |
             if [ $CIRCLE_BRANCH = 'master' ]; then
               wget https://github.com/netlify/netlifyctl/releases/download/v0.4.0/netlifyctl-linux-amd64-0.4.0.tar.gz
@@ -44,5 +56,5 @@ jobs:
             fi
 
       - run:
-          name: Upload coverage report to Codecov
+          name: Uploading coverage report to Codecov
           command: ./node_modules/codecov/bin/codecov

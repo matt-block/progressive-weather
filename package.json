@@ -87,6 +87,8 @@
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "eslint-config-airbnb": "^16.1.0",
+    "puppeteer": "^1.5.0",
+    "serve": "^9.0.0",
     "worker-loader": "1.1.1"
   },
   "jest": {
@@ -113,7 +115,7 @@
     ],
     "moduleNameMapper": {
       "^react-native$": "react-native-web",
-      "\\.worker":"<rootDir>/mocks/workerMock.js"
+      "\\.worker": "<rootDir>/mocks/workerMock.js"
     },
     "moduleFileExtensions": [
       "web.js",

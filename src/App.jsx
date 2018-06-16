@@ -21,11 +21,16 @@ import { fetchCurrentDataFor, fetchForecastDataFor } from './store/api/actions'
 function initialize() {
   store.dispatch(loadSettings())
 
-  // TODO: onGeolocationUnsuccessful.
-  navigator.geolocation.getCurrentPosition((position) => {
-    store.dispatch(fetchCurrentDataFor(position.coords.latitude, position.coords.longitude))
-    store.dispatch(fetchForecastDataFor(position.coords.latitude, position.coords.longitude))
-  })
+  if (process.env.REACT_APP_E2E_TEST) {
+    store.dispatch(fetchCurrentDataFor(52.5200, 13.4050))
+    store.dispatch(fetchForecastDataFor(52.5200, 13.4050))
+  } else {
+    // TODO: onGeolocationUnsuccessful.
+    navigator.geolocation.getCurrentPosition((position) => {
+      store.dispatch(fetchCurrentDataFor(position.coords.latitude, position.coords.longitude))
+      store.dispatch(fetchForecastDataFor(position.coords.latitude, position.coords.longitude))
+    })
+  }
 }
 
 function App() {
