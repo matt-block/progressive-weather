@@ -2,6 +2,10 @@ import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import fetchMock from 'fetch-mock'
 import moment from 'moment'
+import {
+  currentDataResponseValid,
+  forecastDataResponseValid,
+} from './reducer.mockData'
 import apiReducer from './reducer'
 import {
   addApiData,
@@ -13,45 +17,11 @@ import {
   addApiError,
   removeApiError,
   fetchCurrentDataFor,
+  fetchForecastDataFor,
 } from './actions'
 
 const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)
-
-const currentDataResponseValid = {
-  coord: {
-    lon: 139,
-    lat: 35,
-  },
-  sys: {
-    country: 'JP',
-    sunrise: 1369769524,
-    sunset: 1369821049,
-  },
-  weather: [{
-    id: 804,
-    main: 'clouds',
-    description: 'overcast clouds',
-    icon: '04n',
-  }],
-  main: {
-    temp: 289.5,
-    humidity: 89,
-    pressure: 1013,
-    temp_min: 287.04,
-    temp_max: 292.04,
-  },
-  wind: {
-    speed: 7.31,
-    deg: 187.002,
-  },
-  rain: { '3h': 0 },
-  clouds: { all: 92 },
-  dt: 1369824698,
-  id: 1851632,
-  name: 'Shuzenji',
-  cod: 200,
-}
 
 describe('Api Reducer', () => {
   afterEach(() => {
@@ -270,14 +240,13 @@ describe('Api Reducer', () => {
   })
 
   test('handles fetchCurrentDataFor invalid response', () => {
-    fetchMock
-      .getOnce(
-        /https:\/\/api.openweathermap.org\/data\/2.5\/weather/,
-        // Simulate an error 500.
-        // Keep track of https://github.com/wheresrhys/fetch-mock/issues/295
-        // for better solution in v7.
-        () => { throw new Error('Failed to fetch') },
-      )
+    fetchMock.getOnce(
+      /https:\/\/api.openweathermap.org\/data\/2.5\/weather/,
+      // Simulate an error 500.
+      // Keep track of https://github.com/wheresrhys/fetch-mock/issues/295
+      // for better solution in v7.
+      () => { throw new Error('Failed to fetch') },
+    )
 
     const store = mockStore({
       api: {},
@@ -294,6 +263,81 @@ describe('Api Reducer', () => {
     ]
 
     return store.dispatch(fetchCurrentDataFor(12, 13)).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+
+  test('handles fetchForecastDataFor correctly', () => {
+    fetchMock.getOnce(
+      /https:\/\/api.openweathermap.org\/data\/2.5\/forecast/,
+      { body: forecastDataResponseValid },
+    )
+
+    const store = mockStore({
+      api: {},
+      app: { unit: 'metric' },
+    })
+
+    const expectedActions = [
+      { type: 'API_START_FETCHING' },
+      {
+        type: 'API_ADD_FORECAST',
+        forecastData: [
+          {
+            day: 2,
+            icon: '01d',
+            max: 284.657,
+            min: 282.265,
+          },
+          {
+            day: 3,
+            icon: '01n',
+            max: 285.702,
+            min: 281.856,
+          },
+          {
+            day: 4,
+            icon: '01n',
+            max: 285.125,
+            min: 281.978,
+          },
+        ],
+      },
+      { type: 'API_STOP_FETCHING' },
+    ]
+
+    // generateDaysSets uses now to determine the forecast day groups.
+    Date.now = jest.fn(() => new Date(Date.UTC(2017, 0, 30)).valueOf())
+
+    return store.dispatch(fetchForecastDataFor(12, 13)).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+
+  test('handles fetchForecastDataFor invalid response', () => {
+    fetchMock.getOnce(
+      /https:\/\/api.openweathermap.org\/data\/2.5\/forecast/,
+      // Simulate an error 500.
+      // Keep track of https://github.com/wheresrhys/fetch-mock/issues/295
+      // for better solution in v7.
+      () => { throw new Error('Failed to fetch') },
+    )
+
+    const store = mockStore({
+      api: {},
+      app: { unit: 'metric' },
+    })
+
+    const expectedActions = [
+      { type: 'API_START_FETCHING' },
+      {
+        type: 'API_ADD_ERROR',
+        error: 'Failed to fetch',
+      },
+      { type: 'API_STOP_FETCHING' },
+    ]
+
+    return store.dispatch(fetchForecastDataFor(12, 13)).then(() => {
       expect(store.getActions()).toEqual(expectedActions)
     })
   })
