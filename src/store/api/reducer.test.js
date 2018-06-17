@@ -1,3 +1,7 @@
+import configureMockStore from 'redux-mock-store'
+import thunk from 'redux-thunk'
+import fetchMock from 'fetch-mock'
+import moment from 'moment'
 import apiReducer from './reducer'
 import {
   addApiData,
@@ -8,9 +12,53 @@ import {
   stopApiFetching,
   addApiError,
   removeApiError,
+  fetchCurrentDataFor,
 } from './actions'
 
+const middlewares = [thunk]
+const mockStore = configureMockStore(middlewares)
+
+const currentDataResponseValid = {
+  coord: {
+    lon: 139,
+    lat: 35,
+  },
+  sys: {
+    country: 'JP',
+    sunrise: 1369769524,
+    sunset: 1369821049,
+  },
+  weather: [{
+    id: 804,
+    main: 'clouds',
+    description: 'overcast clouds',
+    icon: '04n',
+  }],
+  main: {
+    temp: 289.5,
+    humidity: 89,
+    pressure: 1013,
+    temp_min: 287.04,
+    temp_max: 292.04,
+  },
+  wind: {
+    speed: 7.31,
+    deg: 187.002,
+  },
+  rain: { '3h': 0 },
+  clouds: { all: 92 },
+  dt: 1369824698,
+  id: 1851632,
+  name: 'Shuzenji',
+  cod: 200,
+}
+
 describe('Api Reducer', () => {
+  afterEach(() => {
+    fetchMock.reset()
+    fetchMock.restore()
+  })
+
   test('returns the initial state', () => {
     const initialState = apiReducer(undefined, {})
 
@@ -181,6 +229,72 @@ describe('Api Reducer', () => {
       forecastData: undefined,
       isFetching: true,
       error: undefined,
+    })
+  })
+
+  test('handles fetchCurrentDataFor correctly', () => {
+    fetchMock
+      .getOnce(
+        'https://api.openweathermap.org/data/2.5/weather?lat=12&lon=13&appid=undefined&units=metric&mode=',
+        { body: currentDataResponseValid },
+      )
+
+    const store = mockStore({
+      api: {},
+      app: { unit: 'metric' },
+    })
+
+    const expectedActions = [
+      { type: 'API_START_FETCHING' },
+      {
+        type: 'API_ADD_DATA',
+        currentData: {
+          description: 'clouds',
+          humidity: 89,
+          icon: '04n',
+          locationName: 'Shuzenji',
+          sunrise: moment.unix(1369769524),
+          sunset: moment.unix(1369821049),
+          temperature: 289.5,
+          temperatureMax: 292.04,
+          temperatureMin: 287.04,
+          wind: 7.31,
+        },
+      },
+      { type: 'API_STOP_FETCHING' },
+    ]
+
+    return store.dispatch(fetchCurrentDataFor(12, 13)).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+
+  test('handles fetchCurrentDataFor invalid response', () => {
+    fetchMock
+      .getOnce(
+        'https://api.openweathermap.org/data/2.5/weather?lat=12&lon=13&appid=undefined&units=metric&mode=',
+        // Simulate an error 500.
+        // Keep track of https://github.com/wheresrhys/fetch-mock/issues/295
+        // for better solution in v7.
+        () => { throw new Error('Failed to fetch') },
+      )
+
+    const store = mockStore({
+      api: {},
+      app: { unit: 'metric' },
+    })
+
+    const expectedActions = [
+      { type: 'API_START_FETCHING' },
+      {
+        type: 'API_ADD_ERROR',
+        error: 'Failed to fetch',
+      },
+      { type: 'API_STOP_FETCHING' },
+    ]
+
+    return store.dispatch(fetchCurrentDataFor(12, 13)).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
     })
   })
 })
