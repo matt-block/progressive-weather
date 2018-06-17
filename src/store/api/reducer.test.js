@@ -235,7 +235,7 @@ describe('Api Reducer', () => {
   test('handles fetchCurrentDataFor correctly', () => {
     fetchMock
       .getOnce(
-        'https://api.openweathermap.org/data/2.5/weather?lat=12&lon=13&appid=undefined&units=metric&mode=',
+        /https:\/\/api.openweathermap.org\/data\/2.5\/weather/,
         { body: currentDataResponseValid },
       )
 
@@ -272,7 +272,7 @@ describe('Api Reducer', () => {
   test('handles fetchCurrentDataFor invalid response', () => {
     fetchMock
       .getOnce(
-        'https://api.openweathermap.org/data/2.5/weather?lat=12&lon=13&appid=undefined&units=metric&mode=',
+        /https:\/\/api.openweathermap.org\/data\/2.5\/weather/,
         // Simulate an error 500.
         // Keep track of https://github.com/wheresrhys/fetch-mock/issues/295
         // for better solution in v7.
