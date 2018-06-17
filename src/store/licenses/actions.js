@@ -9,7 +9,7 @@
 import Worker from 'worker-loader!../../utils/workers/fileToTextLoader.worker'
 import licensesPath from '../../assets/third_party_licenses.md'
 
-const addLicensesText = text => ({
+export const addLicensesText = text => ({
   type: 'LICENSES_ADD',
   licenses: text,
 })
