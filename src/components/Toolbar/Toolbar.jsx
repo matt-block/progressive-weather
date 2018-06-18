@@ -34,7 +34,7 @@ export function ToolbarBase(props) {
   if (props.currentPath === '/licenses') { title = 'Licenses' }
 
   return (
-    <Container>
+    <Container toolbar>
       <ToolbarShell>
         <ToolbarNavigation>
           {props.currentPath !== '/' ? backIcon : null}

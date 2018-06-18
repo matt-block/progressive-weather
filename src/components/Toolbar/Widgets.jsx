@@ -11,9 +11,11 @@ import './Widgets.css'
 
 export function ToolbarShell(props) {
   return (
-    <header className='header-shell'>
-      {props.children}
-    </header>
+    <div className='header-shell__fixed-wrapper'>
+      <header className='header-shell'>
+        {props.children}
+      </header>
+    </div>
   )
 }
 

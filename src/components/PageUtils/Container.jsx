@@ -37,9 +37,10 @@ import './Container.css'
  * @see https://university.webflow.com/article/container
  * @see https://baymard.com/blog/line-length-readability
  */
-function Container({ children }) {
+function Container({ children, toolbar }) {
+  const classes = toolbar ? 'container container--toolbar' : 'container'
   return (
-    <div className='container'>
+    <div className={classes}>
       {children}
     </div>
   )
@@ -50,10 +51,12 @@ Container.propTypes = {
     PropTypes.arrayOf(PropTypes.element),
     PropTypes.element,
   ]),
+  toolbar: PropTypes.bool,
 }
 
 Container.defaultProps = {
   children: undefined,
+  toolbar: false,
 }
 
 export default Container
