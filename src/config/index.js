@@ -30,3 +30,8 @@ export const APP_VERSION = '1.4.2'
  * URL of the application repository.
  */
 export const APP_REPO_LINK = 'https://github.com/matt-block/progressive-weather'
+
+/**
+ * URL for bug reports.
+ */
+export const APP_BUGREPORT_LINK = `${APP_REPO_LINK}/issues/new`

@@ -9,8 +9,20 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Container from '../../components/PageUtils'
-import { SettingsRow, SettingsGroup, SettingsRowLink, SettingsRowInternalLink, UpdateRow, Select } from './Widgets'
-import { APP_REPO_LINK, APP_VERSION, API_URL } from '../../config'
+import {
+  SettingsRow,
+  SettingsGroup,
+  SettingsRowLink,
+  SettingsRowInternalLink,
+  UpdateRow,
+  Select,
+} from './Widgets'
+import {
+  APP_REPO_LINK,
+  APP_BUGREPORT_LINK,
+  APP_VERSION,
+  API_URL,
+} from '../../config'
 import { changeUnit } from '../../store/app/actions'
 
 export function SettingsPageBase({ notificationEnabled, unit, changeTempUnit }) {
@@ -23,6 +35,13 @@ export function SettingsPageBase({ notificationEnabled, unit, changeTempUnit }) 
             onChange={changeTempUnit}
           />
         </SettingsRow>
+      </SettingsGroup>
+      <SettingsGroup title='Help'>
+        <SettingsRowLink
+          title='Having issues?'
+          subtitle='Open an issue on GitHub'
+          url={APP_BUGREPORT_LINK}
+        />
       </SettingsGroup>
       <SettingsGroup title='About'>
         <SettingsRow
