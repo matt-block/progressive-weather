@@ -24,7 +24,7 @@ export const API_URL = 'https://openweathermap.org/'
  *
  * @see {@link https://semver.org/}
  */
-export const APP_VERSION = '1.5.0'
+export const APP_VERSION = '1.5.1'
 
 /**
  * URL of the application repository.
