@@ -27,14 +27,10 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  height: 47px;
+  height: 55px;
   padding: 0 16px;
   border-bottom: 1px solid #96969660;
   list-style: none;
-}
-
-.settings__group > .settings__row:last-child {
-  border-bottom: none;
 }
 
 .settings_row-title-wrapper {
