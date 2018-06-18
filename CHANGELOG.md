@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.5.0] - 2018-06-18
+### Added
+- Help group in Settings page with bug report link.
+
 ## [1.4.2] - 2018-06-16
 ### Changed
 - `App` now also handles user positioning.
@@ -61,6 +65,7 @@ correctly the row title if no subtitle is provided.
   - Display forecast for the next three days (min, max and condition icon)
   - Settings page with _about_ section
 
+[1.5.0]: https://github.com/matt-block/progressive-weather/compare/v1.4.2...v1.5.0
 [1.4.2]: https://github.com/matt-block/progressive-weather/compare/v1.4.1...v1.4.2
 [1.4.1]: https://github.com/matt-block/progressive-weather/compare/v1.4.0...v1.4.1
 [1.4.0]: https://github.com/matt-block/progressive-weather/compare/v1.3.1...v1.4.0
