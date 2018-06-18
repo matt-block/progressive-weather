@@ -18,3 +18,7 @@
     width: var(--max-width-sm);
   }
 }
+
+.container--toolbar {
+  margin-bottom: 64px;
+}
