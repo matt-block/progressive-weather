@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.5.3] - 2018-06-19
+### Fixed
+- iOS icon not appearing when adding the app to Home.
+
 ## [1.5.2] - 2018-06-18
 ### Changed
 - Toolbar now is fixed at the top of the window.
@@ -73,6 +77,7 @@ correctly the row title if no subtitle is provided.
   - Display forecast for the next three days (min, max and condition icon)
   - Settings page with _about_ section
 
+[1.5.3]: https://github.com/matt-block/progressive-weather/compare/v1.5.2...v1.5.3
 [1.5.2]: https://github.com/matt-block/progressive-weather/compare/v1.5.1...v1.5.2
 [1.5.1]: https://github.com/matt-block/progressive-weather/compare/v1.5.0...v1.5.1
 [1.5.0]: https://github.com/matt-block/progressive-weather/compare/v1.4.2...v1.5.0
