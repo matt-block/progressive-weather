@@ -27,6 +27,7 @@ describe('Api Reducer', () => {
   afterEach(() => {
     fetchMock.reset()
     fetchMock.restore()
+    window.localStorage.clear()
   })
 
   test('returns the initial state', () => {
@@ -211,7 +212,7 @@ describe('Api Reducer', () => {
 
     const store = mockStore({
       api: {},
-      app: { unit: 'metric' },
+      app: { unit: '' },
     })
 
     const expectedActions = [
@@ -250,7 +251,7 @@ describe('Api Reducer', () => {
 
     const store = mockStore({
       api: {},
-      app: { unit: 'metric' },
+      app: { unit: '' },
     })
 
     const expectedActions = [
@@ -275,7 +276,7 @@ describe('Api Reducer', () => {
 
     const store = mockStore({
       api: {},
-      app: { unit: 'metric' },
+      app: { unit: '' },
     })
 
     const expectedActions = [
@@ -325,7 +326,7 @@ describe('Api Reducer', () => {
 
     const store = mockStore({
       api: {},
-      app: { unit: 'metric' },
+      app: { unit: '' },
     })
 
     const expectedActions = [
