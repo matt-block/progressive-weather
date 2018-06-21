@@ -18,6 +18,11 @@ export const API_KEY = process.env.REACT_APP_OPENWEATHERMAP_KEY
 export const API_URL = 'https://openweathermap.org/'
 
 /**
+ * Max age of cached data (in seconds).
+ */
+export const MAX_CACHE_AGE = 900
+
+/**
  * Application version.
  *
  * The version adheres to semantic versioning.

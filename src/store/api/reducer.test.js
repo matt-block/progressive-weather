@@ -27,6 +27,7 @@ describe('Api Reducer', () => {
   afterEach(() => {
     fetchMock.reset()
     fetchMock.restore()
+    window.localStorage.clear()
   })
 
   test('returns the initial state', () => {

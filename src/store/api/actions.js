@@ -6,7 +6,7 @@
  */
 
 import moment from 'moment'
-import { API_KEY } from '../../config'
+import { API_KEY, MAX_CACHE_AGE } from '../../config'
 import OpenWeatherMap from '../../api/OpenWeatherMap'
 import { kelvinToCelsius, kelvinToFahrenheit } from '../../utils/converters'
 import { getCache, updateCache } from '../../utils/cache'
@@ -76,47 +76,76 @@ function getMostFrequentIcon(day) {
 export const fetchCurrentDataFor = (latitude, longitude) => async (dispatch, getState) => {
   dispatch(startApiFetching())
 
-  try {
-    const weatherService = new OpenWeatherMap(API_KEY)
-    const rawData = await weatherService.getCurrentByCoordinates(latitude, longitude)
+  let cache = getCache()
+  let currentData
 
-    let currentData = {
-      locationName: rawData.name,
-      temperature: rawData.main.temp,
-      temperatureMin: rawData.main.temp_min,
-      temperatureMax: rawData.main.temp_max,
-      humidity: rawData.main.humidity,
-      sunrise: moment.unix(rawData.sys.sunrise),
-      sunset: moment.unix(rawData.sys.sunset),
-      description: rawData.weather[0].main,
-      icon: rawData.weather[0].icon,
-      wind: rawData.wind.speed,
-    }
+  if (
+    !cache ||
+    (cache && !cache.currentData) ||
+    moment().diff(moment.unix(cache.timestamp), 'seconds') > MAX_CACHE_AGE
+  ) {
+    // There is no current weather data cached or
+    // it is deemed obsolete.
+    // Proceed with API call to fetch fresh data.
+    try {
+      const weatherService = new OpenWeatherMap(API_KEY)
+      const rawData = await weatherService.getCurrentByCoordinates(latitude, longitude)
 
-    // Cache data.
-    const currentCache = getCache()
-    updateCache({
-      ...currentCache,
-      timestamp: moment().unix(),
-      currentData,
-    })
-
-    // Convert Kelvin to current unit.
-    if (getState().app.unit !== '') {
-      const converter = getState().app.unit === 'metric' ? kelvinToCelsius : kelvinToFahrenheit
       currentData = {
-        ...currentData,
-        temperature: converter(currentData.temperature),
-        temperatureMin: converter(currentData.temperatureMin),
-        temperatureMax: converter(currentData.temperatureMax),
+        locationName: rawData.name,
+        temperature: rawData.main.temp,
+        temperatureMin: rawData.main.temp_min,
+        temperatureMax: rawData.main.temp_max,
+        humidity: rawData.main.humidity,
+        sunrise: rawData.sys.sunrise,
+        sunset: rawData.sys.sunset,
+        description: rawData.weather[0].main,
+        icon: rawData.weather[0].icon,
+        wind: rawData.wind.speed,
+      }
+
+      // Cache new data.
+      cache = getCache()
+      updateCache({
+        ...cache,
+        timestamp: moment().unix(),
+        currentData,
+      })
+    } catch (error) {
+      // If there is an error fallback to cached data if it exists,
+      // else proceed with storing the error message.
+      if (cache && cache.currentData) {
+        currentData = { ...cache.currentData }
+      } else {
+        dispatch(addApiError(error.message))
+        dispatch(stopApiFetching())
+        return
       }
     }
-
-    dispatch(addApiData(currentData))
-  } catch (error) {
-    dispatch(addApiError(error.message))
+  } else {
+    // There is cached and valid current weather data, skip API call.
+    currentData = { ...cache.currentData }
   }
 
+  if (getState().app.unit !== '') {
+    // Convert Kelvin to current unit.
+    const converter = getState().app.unit === 'metric' ? kelvinToCelsius : kelvinToFahrenheit
+    currentData = {
+      ...currentData,
+      temperature: converter(currentData.temperature),
+      temperatureMin: converter(currentData.temperatureMin),
+      temperatureMax: converter(currentData.temperatureMax),
+    }
+  }
+
+  // Convert unix timestamps to moment instances.
+  currentData = {
+    ...currentData,
+    sunrise: moment.unix(currentData.sunrise),
+    sunset: moment.unix(currentData.sunset),
+  }
+
+  dispatch(addApiData(currentData))
   dispatch(stopApiFetching())
 }
 
@@ -150,41 +179,62 @@ function generateDaysSets(rawData) {
 export const fetchForecastDataFor = (latitude, longitude) => async (dispatch, getState) => {
   dispatch(startApiFetching())
 
-  try {
-    const weatherService = new OpenWeatherMap(API_KEY)
-    const rawData = await weatherService.getForecasatByCoordinates(latitude, longitude)
+  let cache = getCache()
+  let forecastData
 
-    const allDaysSets = generateDaysSets(rawData)
-    let forecastData = allDaysSets.map(day => ({
-      min: day.sets.reduce((min, current) => (current.main.temp_min <= min ? current.main.temp_min : min), 9999),
-      max: day.sets.reduce((max, current) => (current.main.temp_max >= max ? current.main.temp_max : max), -9999),
-      icon: getMostFrequentIcon(day.sets),
-      day: day.weekDayAsNumber,
-    }))
+  if (
+    !cache ||
+    (cache && !cache.forecastData) ||
+    moment().diff(moment.unix(cache.timestamp), 'seconds') > MAX_CACHE_AGE
+  ) {
+    // There is no forecast data cached or it is deemed obsolete.
+    // Proceed with API call to fetch fresh data.
+    try {
+      const weatherService = new OpenWeatherMap(API_KEY)
+      const rawData = await weatherService.getForecasatByCoordinates(latitude, longitude)
 
-    // Cache data.
-    const currentCache = getCache()
-    updateCache({
-      ...currentCache,
-      timestamp: moment().unix(),
-      forecastData,
-    })
-
-    // Convert Kelvin to current unit.
-    if (getState().app.unit !== '') {
-      const converter = getState().app.unit === 'metric' ? kelvinToCelsius : kelvinToFahrenheit
-      forecastData = forecastData.map(day => ({
-        min: converter(day.min),
-        max: converter(day.max),
-        icon: day.icon,
-        day: day.day,
+      const allDaysSets = generateDaysSets(rawData)
+      forecastData = allDaysSets.map(day => ({
+        min: day.sets.reduce((min, current) => (current.main.temp_min <= min ? current.main.temp_min : min), 9999),
+        max: day.sets.reduce((max, current) => (current.main.temp_max >= max ? current.main.temp_max : max), -9999),
+        icon: getMostFrequentIcon(day.sets),
+        day: day.weekDayAsNumber,
       }))
-    }
 
-    dispatch(addApiForecast(forecastData))
-  } catch (error) {
-    dispatch(addApiError(error.message))
+      // Cache new data.
+      cache = getCache()
+      updateCache({
+        ...cache,
+        timestamp: moment().unix(),
+        forecastData,
+      })
+    } catch (error) {
+      // If there is an error fallback to cached data if it exists,
+      // else proceed with storing the error message.
+      if (cache && cache.currentData) {
+        forecastData = [...cache.forecastData]
+      } else {
+        dispatch(addApiError(error.message))
+        dispatch(stopApiFetching())
+        return
+      }
+    }
+  } else {
+    // There is cached and valid forecast data, skip API call.
+    forecastData = [...cache.forecastData]
   }
 
+  if (getState().app.unit !== '') {
+    // Convert Kelvin to current unit.
+    const converter = getState().app.unit === 'metric' ? kelvinToCelsius : kelvinToFahrenheit
+    forecastData = forecastData.map(day => ({
+      min: converter(day.min),
+      max: converter(day.max),
+      icon: day.icon,
+      day: day.day,
+    }))
+  }
+
+  dispatch(addApiForecast(forecastData))
   dispatch(stopApiFetching())
 }
