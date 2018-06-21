@@ -8,6 +8,8 @@
 import moment from 'moment'
 import { API_KEY } from '../../config'
 import OpenWeatherMap from '../../api/OpenWeatherMap'
+import { kelvinToCelsius, kelvinToFahrenheit } from '../../utils/converters'
+import { getCache, updateCache } from '../../utils/cache'
 
 export const addApiData = data => ({
   type: 'API_ADD_DATA',
@@ -75,10 +77,10 @@ export const fetchCurrentDataFor = (latitude, longitude) => async (dispatch, get
   dispatch(startApiFetching())
 
   try {
-    const weatherService = new OpenWeatherMap(API_KEY, getState().app.unit)
+    const weatherService = new OpenWeatherMap(API_KEY)
     const rawData = await weatherService.getCurrentByCoordinates(latitude, longitude)
 
-    const currentData = {
+    let currentData = {
       locationName: rawData.name,
       temperature: rawData.main.temp,
       temperatureMin: rawData.main.temp_min,
@@ -89,6 +91,25 @@ export const fetchCurrentDataFor = (latitude, longitude) => async (dispatch, get
       description: rawData.weather[0].main,
       icon: rawData.weather[0].icon,
       wind: rawData.wind.speed,
+    }
+
+    // Cache data.
+    const currentCache = getCache()
+    updateCache({
+      ...currentCache,
+      timestamp: moment().unix(),
+      currentData,
+    })
+
+    // Convert Kelvin to current unit.
+    if (getState().app.unit !== '') {
+      const converter = getState().app.unit === 'metric' ? kelvinToCelsius : kelvinToFahrenheit
+      currentData = {
+        ...currentData,
+        temperature: converter(currentData.temperature),
+        temperatureMin: converter(currentData.temperatureMin),
+        temperatureMax: converter(currentData.temperatureMax),
+      }
     }
 
     dispatch(addApiData(currentData))
@@ -130,16 +151,35 @@ export const fetchForecastDataFor = (latitude, longitude) => async (dispatch, ge
   dispatch(startApiFetching())
 
   try {
-    const weatherService = new OpenWeatherMap(API_KEY, getState().app.unit)
+    const weatherService = new OpenWeatherMap(API_KEY)
     const rawData = await weatherService.getForecasatByCoordinates(latitude, longitude)
 
     const allDaysSets = generateDaysSets(rawData)
-    const forecastData = allDaysSets.map(day => ({
+    let forecastData = allDaysSets.map(day => ({
       min: day.sets.reduce((min, current) => (current.main.temp_min <= min ? current.main.temp_min : min), 9999),
       max: day.sets.reduce((max, current) => (current.main.temp_max >= max ? current.main.temp_max : max), -9999),
       icon: getMostFrequentIcon(day.sets),
       day: day.weekDayAsNumber,
     }))
+
+    // Cache data.
+    const currentCache = getCache()
+    updateCache({
+      ...currentCache,
+      timestamp: moment().unix(),
+      forecastData,
+    })
+
+    // Convert Kelvin to current unit.
+    if (getState().app.unit !== '') {
+      const converter = getState().app.unit === 'metric' ? kelvinToCelsius : kelvinToFahrenheit
+      forecastData = forecastData.map(day => ({
+        min: converter(day.min),
+        max: converter(day.max),
+        icon: day.icon,
+        day: day.day,
+      }))
+    }
 
     dispatch(addApiForecast(forecastData))
   } catch (error) {

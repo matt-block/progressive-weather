@@ -211,7 +211,7 @@ describe('Api Reducer', () => {
 
     const store = mockStore({
       api: {},
-      app: { unit: 'metric' },
+      app: { unit: '' },
     })
 
     const expectedActions = [
@@ -250,7 +250,7 @@ describe('Api Reducer', () => {
 
     const store = mockStore({
       api: {},
-      app: { unit: 'metric' },
+      app: { unit: '' },
     })
 
     const expectedActions = [
@@ -275,7 +275,7 @@ describe('Api Reducer', () => {
 
     const store = mockStore({
       api: {},
-      app: { unit: 'metric' },
+      app: { unit: '' },
     })
 
     const expectedActions = [
@@ -325,7 +325,7 @@ describe('Api Reducer', () => {
 
     const store = mockStore({
       api: {},
-      app: { unit: 'metric' },
+      app: { unit: '' },
     })
 
     const expectedActions = [
