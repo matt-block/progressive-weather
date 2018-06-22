@@ -29,7 +29,7 @@ export const MAX_CACHE_AGE = 900
  *
  * @see {@link https://semver.org/}
  */
-export const APP_VERSION = '1.6.0'
+export const APP_VERSION = '1.6.1'
 
 /**
  * URL of the application repository.
