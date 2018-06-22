@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.6.1] - 2018-06-22
+### Fixed
+- User is now redirected to the main page when manually updating from Settings.
+
 ## [1.6.0] - 2018-06-21
 ### Added
 - Weather data is now cached offline. This reduces the amount of network calls
@@ -86,6 +90,7 @@ correctly the row title if no subtitle is provided.
   - Display forecast for the next three days (min, max and condition icon)
   - Settings page with _about_ section
 
+[1.6.1]: https://github.com/matt-block/progressive-weather/compare/v1.6.0...v1.6.1
 [1.6.0]: https://github.com/matt-block/progressive-weather/compare/v1.5.4...v1.6.0
 [1.5.4]: https://github.com/matt-block/progressive-weather/compare/v1.5.3...v1.5.4
 [1.5.3]: https://github.com/matt-block/progressive-weather/compare/v1.5.2...v1.5.3
