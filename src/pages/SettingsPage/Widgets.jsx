@@ -8,8 +8,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import './Widgets.css'
 import { ExternalIcon } from '../../components/Icons'
+import './Widgets.css'
 
 export function Select({ value, onChange }) {
   return (
@@ -134,10 +134,18 @@ SettingsGroup.propTypes = {
   ]).isRequired,
 }
 
-export function UpdateRow() {
+export function UpdateRow({ update }) {
   return (
     <div className='settings__update-button-wrapper'>
-      <button onClick={() => window.location.reload()}>Update now</button>
+      <button onClick={update}>Update now</button>
     </div>
   )
+}
+
+UpdateRow.propTypes = {
+  update: PropTypes.func,
+}
+
+UpdateRow.defaultProps = {
+  update: undefined,
 }

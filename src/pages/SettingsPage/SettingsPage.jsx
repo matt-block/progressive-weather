@@ -8,6 +8,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { push } from 'connected-react-router'
 import Container from '../../components/PageUtils'
 import {
   SettingsRow,
@@ -24,15 +25,16 @@ import {
   API_URL,
 } from '../../config'
 import { changeUnit } from '../../store/app/actions'
+import { startApiFetching } from '../../store/api/actions'
 
-export function SettingsPageBase({ notificationEnabled, unit, changeTempUnit }) {
+export function SettingsPageBase(props) {
   return (
     <Container>
       <SettingsGroup title='General'>
         <SettingsRow title='Temperature'>
           <Select
-            value={unit}
-            onChange={changeTempUnit}
+            value={props.unit}
+            onChange={props.changeTempUnit}
           />
         </SettingsRow>
       </SettingsGroup>
@@ -48,7 +50,7 @@ export function SettingsPageBase({ notificationEnabled, unit, changeTempUnit }) 
           title='Version'
           subtitle={APP_VERSION}
         >
-          {notificationEnabled ? <UpdateRow /> : null}
+          {props.notificationEnabled ? <UpdateRow update={props.updateRefresh} /> : null}
         </SettingsRow>
         <SettingsRowLink
           title='Source code'
@@ -73,10 +75,12 @@ SettingsPageBase.propTypes = {
   notificationEnabled: PropTypes.bool,
   unit: PropTypes.string.isRequired,
   changeTempUnit: PropTypes.func.isRequired,
+  updateRefresh: PropTypes.func,
 }
 
 SettingsPageBase.defaultProps = {
   notificationEnabled: false,
+  updateRefresh: undefined,
 }
 
 const mapStateToProps = state => ({
@@ -87,6 +91,11 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   changeTempUnit(event) {
     dispatch(changeUnit(event.target.value))
+  },
+  updateRefresh() {
+    dispatch(startApiFetching())
+    dispatch(push('/'))
+    window.location.reload()
   },
 })
 
